@@ -13,5 +13,11 @@ namespace Система_за_управление_на_гадатели_MVC.Int
         public Task CreateEnquiryAsync(CreateEnquiryViewModel model);
 
         public Task<ICollection<Enquiry>> GetAllEnquriesByIdAsync(ApplicationUser user);
+
+        public Task<Enquiry> GetEnquiryByIdAsync(int enquiryId, string userId);
+
+        public Task<Enquiry> ChangeEnquiryInformation(ChangeEnquiryByIdViewModel model);
+
+        public Task<Enquiry> CancelEnquiry(Enquiry enquiry);
     }
 }

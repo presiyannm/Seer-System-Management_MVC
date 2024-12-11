@@ -35,11 +35,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -2,39 +2,39 @@
 
 <h2>ЗАДАЙ СВОЯ ВЪПРОС</h2>
 
-<form asp-action="CreateEnquiry" method="post">
+<form id="create-enquiry-form" asp-action="CreateEnquiry" asp-controller="Client" method="post">
     <div class="form-group">
         <label for="ClientName">Пълно име</label>
-        <input asp-for="ClientName" class="form-control" />
-        <span asp-validation-for="ClientName" class="text-danger"></span>
+        <input asp-for="ClientName" class="form-control" id="ClientName" />
+        <span class="text-danger" id="ClientNameError"></span>
     </div>
 
     <div class="form-group">
         <label for="ClientBirthDate">Дата на раждане</label>
-        <input asp-for="ClientBirthDate" class="form-control" type="date" />
-        <span asp-validation-for="ClientBirthDate" class="text-danger"></span>
+        <input asp-for="ClientBirthDate" class="form-control" id="ClientBirthDate" type="date" />
+        <span class="text-danger" id="ClientBirthDateError"></span>
     </div>
 
     <div class="form-group">
         <label for="Description">Желан резултат</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <textarea asp-for="Description" class="form-control" id="Description"></textarea>
+        <span class="text-danger" id="DescriptionError"></span>
     </div>
 
     <div class="form-group">
         <label for="EnquiryTypeId">Избери си вид гадаене</label>
-        <select asp-for="EnquiryTypeId" class="form-control" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
+        <select asp-for="EnquiryTypeId" class="form-control" id="EnquiryTypeId" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
             <option value="" disabled selected>-- Избери вид гадаене --</option>
         </select>
-        <span asp-validation-for="EnquiryTypeId" class="text-danger"></span>
+        <span class="text-danger" id="EnquiryTypeIdError"></span>
     </div>
 
     <div class="form-group mb-3">
-        <label for="EnquiryTypeId">Избери си гадател</label>
-        <select asp-for="SeerId" class="form-control" asp-items="@(new SelectList(Model.Seers, "Id", "ApplicationUser.UserName"))">
+        <label for="SeerId">Избери си гадател</label>
+        <select asp-for="SeerId" class="form-control" id="SeerId" asp-items="@(new SelectList(Model.Seers, "Id", "ApplicationUser.UserName"))">
             <option value="" disabled selected>-- Избери гадател --</option>
         </select>
-        <span asp-validation-for="SeerId" class="text-danger"></span>
+        <span class="text-danger" id="SeerIdError"></span>
     </div>
 
     <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
@@ -42,3 +42,4 @@
     <button type="submit" class="btn btn-success">Изпрати</button>
 </form>
 
+<script src="~/js/Enquiry/CreateEnquiryValidation.js"></script>

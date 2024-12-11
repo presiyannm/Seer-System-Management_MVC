@@ -11,6 +11,9 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         public int Id { get; set; }
 
         [Required]
+        public string ClientName { get; set; } = string.Empty;
+
+        [Required]
         public int EnquiryTypeId { get; set; }
 
         [ForeignKey(nameof(EnquiryTypeId))]

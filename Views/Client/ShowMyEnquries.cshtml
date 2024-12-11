@@ -13,6 +13,7 @@
                 <th>Дата на изпращане</th>
                 <th>Дата на влизане в процес</th>
                 <th>Дата на приключване</th>
+                <th>Действия</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,15 @@
                         <td>@(enquiry.EnquirySentToCheck?.ToString("yyyy-MM-dd") ?? "Not Sent")</td>
                         <td>@(enquiry.EnquiryCheckInProgress?.ToString("yyyy-MM-dd") ?? "Not In Progress")</td>
                         <td>@(enquiry.EnquiryCheckFinished?.ToString("yyyy-MM-dd") ?? "Not Finished")</td>
+                        <td>
+                            @if (enquiry.EnquiryStatusId == 1)
+                            {
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-primary btn-sm" asp-action="ChangeEnquiryById" asp-route-enquiryId="@enquiry.Id" asp-route-userId="@User.Id()">Промяна</a>
+                                    <a class="btn btn-danger btn-sm" asp-action="CancelEnquiryById" asp-route-enquiryId="@enquiry.Id" asp-route-userId="@User.Id()">Откажи въпроса</a>
+                                </div>
+                            }
+                        </td>
                     </tr>
                     counter++;
                 }
@@ -36,10 +46,9 @@
             else
             {
                 <tr>
-                    <td colspan="7" class="text-center">No enquiries found.</td>
+                    <td colspan="8" class="text-center">No enquiries found.</td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-

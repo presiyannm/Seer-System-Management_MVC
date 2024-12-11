@@ -51,6 +51,7 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
                 EnquiryStatusId = 1,
                 EnquiryTypeId = model.EnquiryTypeId,
                 SeerId = model.SeerId,
+                ClientName = model.ClientName,
                 EnquirySentToCheck = DateTime.Now
             };
 
@@ -58,6 +59,52 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
 
             await context.SaveChangesAsync();
         }
+
+        public async Task<Enquiry> GetEnquiryByIdAsync(int enquiryId, string userId)
+        {
+            var enquiry = await context.Enquiries
+                .Include(x => x.ApplicationUser)
+                .Where(x => x.Id ==  enquiryId && x.ApplicationUserId == userId)
+                .FirstOrDefaultAsync();
+
+            if (enquiry == null)
+            {
+                throw new Exception("Enquiry doesn't exist");
+            }
+
+            return enquiry;
+        }
+
+        public async Task<Enquiry> ChangeEnquiryInformation(ChangeEnquiryByIdViewModel model)
+        {
+            var enquiryToChange = await context.Enquiries
+                .Include(x => x.ApplicationUser)
+                .FirstOrDefaultAsync(x => x.Id == model.EnquiryId);
+
+            if (enquiryToChange == null)
+            {
+                throw new Exception("Enquiry doesn't exist");
+            }
+
+            enquiryToChange.ClientName = model.ClientName;
+            enquiryToChange.Description = model.Description;
+            enquiryToChange.ApplicationUserBirthday = model.ClientBirthDate;
+            enquiryToChange.EnquiryTypeId = model.EnquiryTypeId;
+
+            await context.SaveChangesAsync();
+
+            return enquiryToChange;
+        }
+
+        public async Task<Enquiry> CancelEnquiry(Enquiry enquiry)
+        {
+            enquiry.EnquiryStatusId = 5;
+
+            await context.SaveChangesAsync();
+
+            return enquiry;
+        }
+
     }
 }
 

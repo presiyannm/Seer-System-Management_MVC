@@ -46,7 +46,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(model);
+            return RedirectToAction("CreateEnquiry", new { userId = model.ClientId });
         }
 
         [HttpGet]
@@ -65,10 +65,44 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             return View(enquries);
         }
 
-        //[HttpPost]
-        //public async Task ChangeMyEnquiryStatus(int enquiryId)
-        //{
+        [HttpGet]
+        public async Task<IActionResult> ChangeEnquiryById(int enquiryId, string userId)
+        {
+            var enquiryToBeChanged = await enquiryService.GetEnquiryByIdAsync(enquiryId, userId);
 
-        //}
+            var enquiryViewModel = new ChangeEnquiryByIdViewModel()
+            {
+                EnquiryId = enquiryId,
+                ClientName = enquiryToBeChanged.ClientName,
+                Description = enquiryToBeChanged.Description,
+                ClientBirthDate = enquiryToBeChanged.ApplicationUserBirthday,
+                EnquiryTypeId = enquiryToBeChanged.EnquiryTypeId,
+                EnquiryTypes = await enquiryService.GetAllEnquiryTypesAsync()
+            };
+
+            return View(enquiryViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEnquiryById(ChangeEnquiryByIdViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await enquiryService.ChangeEnquiryInformation(model);
+
+                return RedirectToAction("ShowMyEnquries", new { userId = model.ClientId});
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> CancelEnquiryById(int enquiryId, string userId)
+        {
+            var enquiryToBeChanged = await enquiryService.GetEnquiryByIdAsync(enquiryId, userId);
+
+            await enquiryService.CancelEnquiry(enquiryToBeChanged);
+
+            return RedirectToAction("ShowMyEnquries", new { userId = userId });
+        }
     }
 }

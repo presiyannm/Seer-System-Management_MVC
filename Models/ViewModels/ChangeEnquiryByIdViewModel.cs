@@ -2,13 +2,15 @@
 
 namespace Система_за_управление_на_гадатели_MVC.Models.ViewModels
 {
-    public class CreateEnquiryViewModel
+    public class ChangeEnquiryByIdViewModel
     {
+        [Required]
+        public int EnquiryId { get; set; }
+
         [Required]
         public string ClientId { get; set; } = null!;
 
         [Required]
-        [MaxLength(50)]
         public string ClientName { get; set; } = string.Empty;
 
         [Required]
@@ -16,16 +18,12 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         public DateTime ClientBirthDate { get; set; }
 
         [Required]
-        [MaxLength(500)]
         public string Description { get; set; } = string.Empty;
 
         [Required]
         public int EnquiryTypeId { get; set; }
+
         public ICollection<EnquiryType>? EnquiryTypes { get; set; }
 
-        [Required]
-        public int SeerId { get; set; }
-        public ICollection<Seer>? Seers { get; set; }
     }
-
 }
