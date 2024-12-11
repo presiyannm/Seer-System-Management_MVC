@@ -34,9 +34,15 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         public Seer Seer { get; set; }
 
         [Required]
+        [MaxLength(500)]
+        public string Description { get; set; }
+
+        [Required]
         public DateTime ApplicationUserBirthday {  get; set; } 
 
         public DateTime? EnquirySentToCheck { get; set; }
+
+        public DateTime? EnquiryCheckInProgress { get; set; }
 
         public DateTime? EnquiryCheckFinished { get; set; }
 

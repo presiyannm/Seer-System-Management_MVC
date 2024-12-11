@@ -50,6 +50,9 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 if (model.Password == model.ConfirmPassword)
                 {
                     await _userManager.CreateAsync(user, model.Password);
+
+                    await _userManager.AddToRoleAsync(user, "Client");
+
                 }
                 else
                 {

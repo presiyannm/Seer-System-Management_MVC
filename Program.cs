@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Система_за_управление_на_гадатели_MVC.Data;
 using Система_за_управление_на_гадатели_MVC.Data.SeedDb;
+using Система_за_управление_на_гадатели_MVC.Interfaces;
 using Система_за_управление_на_гадатели_MVC.Models.Identity;
+using Система_за_управление_на_гадатели_MVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedEmail = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<IEnquiryService, EnquiryService>();
+
+builder.Services.AddScoped<ISeersService, SeersService>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
