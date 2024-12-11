@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Система_за_управление_на_гадатели_MVC.Interfaces;
 using Система_за_управление_на_гадатели_MVC.Models.Identity;
@@ -6,6 +7,7 @@ using Система_за_управление_на_гадатели_MVC.Models.
 
 namespace Система_за_управление_на_гадатели_MVC.Controllers
 {
+    [Authorize]
     public class ClientController : Controller
     {
         private readonly IEnquiryService enquiryService;
@@ -46,5 +48,27 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             return View(model);
         }
+
+        [HttpGet]
+
+        public async Task<IActionResult> ShowMyEnquries(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User cannot be null");
+            }
+
+            var enquries = await enquiryService.GetAllEnquriesByIdAsync(user);
+            
+            return View(enquries);
+        }
+
+        //[HttpPost]
+        //public async Task ChangeMyEnquiryStatus(int enquiryId)
+        //{
+
+        //}
     }
 }
