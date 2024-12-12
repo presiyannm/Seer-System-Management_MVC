@@ -89,16 +89,19 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
                 if (user == null)
                 {
-                    throw new Exception("User email is null");
+                    ModelState.AddModelError(string.Empty, "Невалиден имейл или парола.");
+                    return View(model);
                 }
 
                 var passwordMatch = await _userManager.CheckPasswordAsync(user, model.Password);
 
-                if (passwordMatch)
+                if (!passwordMatch)
                 {
-                    await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
+                    ModelState.AddModelError(string.Empty, "Паролата е невалидна.");
+                    return View(model);
                 }
 
+                await _signInManager.PasswordSignInAsync(user, model.Password, false, true);
                 return RedirectToAction("Index", "Home");
             }
 

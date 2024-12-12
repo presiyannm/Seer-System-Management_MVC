@@ -1,0 +1,139 @@
+﻿/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Magic Ball Container */
+.magic-ball-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Adjust as needed */
+    width: 100%;
+    padding-top: 50px; /* Make sure the ball doesn't overlap with navbar */
+    padding-bottom: 50px; /* Ensure space for footer */
+    flex-grow: 1;
+}
+
+/* Magic Ball Styling */
+.magic-ball {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #2a2a2a; /* Dark color for the ball */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    animation: vibrate 1s infinite; /* Continuous vibration */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    /* Hover Effects */
+    .magic-ball:hover {
+        transform: scale(1.2) rotate(360deg);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.6);
+    }
+
+/* Magic Ball Glowing Effect */
+.glow {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0));
+    border-radius: 50%;
+    position: absolute;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Continuous Vibration Animation */
+@keyframes vibrate {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+
+    25% {
+        transform: translateX(-5px) translateY(5px);
+    }
+
+    50% {
+        transform: translateX(5px) translateY(-5px);
+    }
+
+    75% {
+        transform: translateX(-5px) translateY(5px);
+    }
+
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}
+
+/* Pulsing Glowing Effect */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+/* Content Styling */
+.content-wrapper {
+    text-align: center;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.text-content h1, .text-content h2, .text-content h3 {
+    color: #2a2a2a;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 15px;
+}
+
+.text-content p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.text-content .call-to-action {
+    font-size: 1.3em;
+    color: #00bcd4;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+/* Enhancing the text's mystical aura */
+.text-content h1, .text-content h2 {
+    text-transform: uppercase;
+    font-size: 2em;
+    color: #1a1a1a;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.text-content p, .text-content .call-to-action {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Add some hover effect on text for extra interaction */
+.text-content h1:hover, .text-content h2:hover {
+    color: #ff8c00;
+    cursor: pointer;
+}

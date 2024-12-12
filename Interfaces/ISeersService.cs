@@ -5,5 +5,9 @@ namespace Система_за_управление_на_гадатели_MVC.Int
     public interface ISeersService
     {
         public Task<ICollection<Seer>> GetAllSeersAsync();
+
+        public Task<ICollection<Enquiry>> GetAllSeerEnquriesAsync(string userId);
+
+        public Task<string> UpdateEnquiryById(int enquiryId, string userId);
     }
 }

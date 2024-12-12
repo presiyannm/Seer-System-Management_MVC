@@ -1,4 +1,5 @@
-﻿@model AccountLoginViewModel;
+﻿@model AccountLoginViewModel
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +9,21 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
             <section class="card shadow-lg p-4">
+                <div>
+                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                </div>
+
                 <form id="account" method="post" asp-controller="Account" asp-action="Login">
                     <div class="form-group mb-4">
                         <label for="Email" class="form-label">Имейл</label>
                         <input asp-for="Email" id="Email" class="form-control" autocomplete="username" aria-required="true" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="Password" class="form-label">Парола</label>
                         <input asp-for="Password" id="Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="text-center mb-4">

@@ -27,6 +27,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-route-userId="@User.Id()" asp-controller="Client" asp-action="ShowMyEnquries">Моите въпроси</a>
                             </li>
+                            @if(User.IsInRole("Seer"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-route-userId="@User.Id()" asp-controller="Seer" asp-action="MySeerEnquries">Моите гадателства</a>
+                                </li>
+                            }
                         }
                     </ul>
                     <partial name="_LoginPartial" />
