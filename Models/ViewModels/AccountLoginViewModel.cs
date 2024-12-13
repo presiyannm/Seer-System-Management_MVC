@@ -5,8 +5,7 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
     public class AccountLoginViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.Password)]

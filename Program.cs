@@ -42,7 +42,8 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    SeedData.SeedDataAsync(scope.ServiceProvider, userManager, roleManager).Wait();
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    SeedData.SeedDataAsync(scope.ServiceProvider, userManager, roleManager, context).Wait();
 }
 
 app.UseHttpsRedirection();

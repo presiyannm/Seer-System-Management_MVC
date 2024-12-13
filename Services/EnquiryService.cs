@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Система_за_управление_на_гадатели_MVC.Data;
+using Система_за_управление_на_гадатели_MVC.Extensions;
 using Система_за_управление_на_гадатели_MVC.Interfaces;
 using Система_за_управление_на_гадатели_MVC.Models;
 using Система_за_управление_на_гадатели_MVC.Models.Identity;

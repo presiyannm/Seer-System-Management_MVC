@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Система_за_управление_на_гадатели_MVC.Models;
 using Система_за_управление_на_гадатели_MVC.Models.Identity;
 
 namespace Система_за_управление_на_гадатели_MVC.Data.SeedDb
@@ -21,7 +22,7 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                 }
             }
         }
-        public static async Task SeedUsersAsync(UserManager<ApplicationUser> userManager)
+        public static async Task SeedUsersAsync(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             var adminUser = await userManager.FindByEmailAsync("admin@domain.com");
 
@@ -76,13 +77,21 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                     await userManager.AddToRoleAsync(seer, "Seer");
                 }
 
+                var seerEntry = new Seer()
+                { 
+                    ApplicationUserId = seer.Id
+                };
+
+                await context.Seers.AddAsync(seerEntry);
+
+                await context.SaveChangesAsync();
             }
         }
-        public static async Task SeedDataAsync(IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedDataAsync(IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             await SeedRolesAsync(roleManager);
 
-            await SeedUsersAsync(userManager);
+            await SeedUsersAsync(userManager, context);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
-        public ICollection<Enquiry> Enquiries { get; set; }
+        public ICollection<Enquiry>? Enquiries { get; set; }
 
 
     }

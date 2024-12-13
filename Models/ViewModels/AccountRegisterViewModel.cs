@@ -4,6 +4,7 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
 {
     public class AccountRegisterViewModel
     {
+        [Required]
         public string UserName { get; set; } =  string.Empty;
 
         [Required]

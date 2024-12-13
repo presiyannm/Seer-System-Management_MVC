@@ -10,6 +10,7 @@
 function validateForm() {
     let isValid = true;
 
+    const username = document.getElementById("UserName").value.trim();
     const email = document.getElementById("Email").value.trim();
     const password = document.getElementById("Password").value.trim();
     const confirmPassword = document.getElementById("ConfirmPassword").value.trim();
@@ -17,6 +18,11 @@ function validateForm() {
     const lastName = document.getElementById("LastName").value.trim();
 
     clearErrors();
+
+    if (username === "") {
+        setError("UserName", "Потребителското име е задължително.");
+        isValid = false;
+    }
 
     if (email === "") {
         setError("Email", "Имейлът е задължителен.");

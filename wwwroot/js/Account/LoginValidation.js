@@ -10,13 +10,13 @@
 function validateLoginForm() {
     let isValid = true;
 
-    const email = document.getElementById("Email").value.trim();
+    const username = document.getElementById("UserName").value.trim();
     const password = document.getElementById("Password").value.trim();
 
     clearErrors();
 
-    if (email === "") {
-        setError("Email", "Имейлът е задължителен.");
+    if (username === "") {
+        setError("UserName", "Потребителското име е задължително.");
         isValid = false;
     }
 

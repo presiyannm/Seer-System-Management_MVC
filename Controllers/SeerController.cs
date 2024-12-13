@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Система_за_управление_на_гадатели_MVC.Interfaces;
 using Система_за_управление_на_гадатели_MVC.Models.Identity;
 
 namespace Система_за_управление_на_гадатели_MVC.Controllers
 {
+    [Authorize(Roles = "Seer")]
     public class SeerController : Controller
     {
         private readonly ISeersService seersService;

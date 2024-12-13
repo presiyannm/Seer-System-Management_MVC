@@ -41,7 +41,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.EmailAddress,
+                    UserName = model.UserName,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.EmailAddress,
@@ -53,12 +53,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
                     await _userManager.AddToRoleAsync(user, "Client");
 
-                }
-                else
-                {
-                    ModelState.AddModelError("password", "Passwords do not match");
-
-                    return View(model);
                 }
 
                 await _context.SaveChangesAsync();
@@ -85,11 +79,11 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         {
             if(ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                var user = await _userManager.FindByNameAsync(model.UserName);
 
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Невалиден имейл или парола.");
+                    ModelState.AddModelError(string.Empty, "Невалидно потребителско име или парола.");
                     return View(model);
                 }
 

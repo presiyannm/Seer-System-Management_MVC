@@ -1,4 +1,5 @@
-﻿using Система_за_управление_на_гадатели_MVC.Models;
+﻿using Система_за_управление_на_гадатели_MVC.Extensions;
+using Система_за_управление_на_гадатели_MVC.Models;
 using Система_за_управление_на_гадатели_MVC.Models.Identity;
 using Система_за_управление_на_гадатели_MVC.Models.ViewModels;
 
@@ -19,5 +20,6 @@ namespace Система_за_управление_на_гадатели_MVC.Int
         public Task<Enquiry> ChangeEnquiryInformation(ChangeEnquiryByIdViewModel model);
 
         public Task<Enquiry> CancelEnquiry(Enquiry enquiry);
+
     }
 }
