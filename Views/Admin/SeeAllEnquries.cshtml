@@ -1,0 +1,53 @@
+﻿@model ICollection<Enquiry>
+
+<h2>Всички Въпроси</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Име на клиент</th>
+                <th>Вид гадаене</th>
+                <th>Статус</th>
+                <th>Гледач</th>
+                <th>Дата на изпращане</th>
+                <th>Дата на влизане в процес</th>
+                <th>Дата на приключване</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                int counter = 1;
+                foreach (var enquiry in Model)
+                {
+                    <tr>
+                        <td>@counter</td>
+                        <td>@enquiry.ClientName</td>
+                        <td>@enquiry.EnquiryType.Name</td>
+                        <td>@enquiry.EnquiryStatus.Status</td>
+                        <td>@enquiry.Seer.ApplicationUser.UserName</td>
+                        <td>@(enquiry.EnquirySentToCheck?.ToString("yyyy-MM-dd") ?? "Not Sent")</td>
+                        <td>@(enquiry.EnquiryCheckInProgress?.ToString("yyyy-MM-dd") ?? "Not In Progress")</td>
+                        <td>@(enquiry.EnquiryCheckFinished?.ToString("yyyy-MM-dd") ?? "Not Finished")</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary btn-sm" asp-action="ChangeEnquiryById" asp-route-enquiryId="@enquiry.Id" asp-route-userId="@enquiry.ApplicationUserId">Редактирай</a>
+                                <a class="btn btn-danger btn-sm" asp-action="DeleteEnquiryById" asp-route-enquiryId="@enquiry.Id">Изтрий</a>
+                            </div>
+                        </td>
+                    </tr>
+                    counter++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="text-center">Няма намерени въпроси.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

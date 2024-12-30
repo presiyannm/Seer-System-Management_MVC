@@ -21,5 +21,7 @@ namespace Система_за_управление_на_гадатели_MVC.Int
 
         public Task<Enquiry> CancelEnquiry(Enquiry enquiry);
 
+        public Task<ICollection<Enquiry>> GetAllEnquriesAsync();
+
     }
 }

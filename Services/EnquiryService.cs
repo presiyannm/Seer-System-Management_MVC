@@ -91,6 +91,11 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
             enquiryToChange.Description = model.Description;
             enquiryToChange.ApplicationUserBirthday = model.ClientBirthDate;
             enquiryToChange.EnquiryTypeId = model.EnquiryTypeId;
+            
+            if (model.SeerId != null)
+            {
+                enquiryToChange.SeerId = model.SeerId;
+            }
 
             await context.SaveChangesAsync();
 
@@ -106,6 +111,18 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
             return enquiry;
         }
 
+        public async Task<ICollection<Enquiry>> GetAllEnquriesAsync()
+        {
+            var enquries = await context.Enquiries
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Seer)
+                .Include(x => x.Seer.ApplicationUser)
+                .Include(x => x.EnquiryType)
+                .Include(x => x.EnquiryStatus)
+                .ToListAsync();
+
+            return enquries;
+        }
     }
 }
 

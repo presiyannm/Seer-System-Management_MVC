@@ -22,6 +22,8 @@ builder.Services.AddScoped<IEnquiryService, EnquiryService>();
 
 builder.Services.AddScoped<ISeersService, SeersService>();
 
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

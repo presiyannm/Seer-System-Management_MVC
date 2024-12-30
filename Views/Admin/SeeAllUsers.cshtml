@@ -1,0 +1,36 @@
+﻿@model ICollection<ApplicationUser>
+
+<h1>Списък с потребители</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Фамилия</th>
+            <th>Имейл</th>
+            <th>Потребителско име</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                @if (user.Seer == null)
+                {
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-action="MakeSeerById" asp-route-userId="@user.Id">Направи ясновидец</a>
+                    </td>
+                }
+                else
+                {
+                    <td>Ясновидец</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

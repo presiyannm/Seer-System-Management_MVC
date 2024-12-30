@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace Система_за_управление_на_гадатели_MVC.Models.ViewModels
 {
@@ -24,6 +25,9 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         public int EnquiryTypeId { get; set; }
 
         public ICollection<EnquiryType>? EnquiryTypes { get; set; }
+
+        public int SeerId { get; set; }
+        public IEnumerable<SelectListItem> Seers { get; set; } = new List<SelectListItem>();
 
     }
 }

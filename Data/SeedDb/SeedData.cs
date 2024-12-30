@@ -78,9 +78,12 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                 }
 
                 var seerEntry = new Seer()
-                { 
-                    ApplicationUserId = seer.Id
+                {
+                    ApplicationUserId = seer.Id,
+                    ApplicationUser = seer
                 };
+
+                seer.Seer = seerEntry;
 
                 await context.Seers.AddAsync(seerEntry);
 
