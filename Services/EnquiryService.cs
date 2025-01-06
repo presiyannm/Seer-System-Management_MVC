@@ -94,7 +94,7 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
             
             if (model.SeerId != null)
             {
-                enquiryToChange.SeerId = model.SeerId;
+                enquiryToChange.SeerId = (int)model.SeerId;
             }
 
             await context.SaveChangesAsync();

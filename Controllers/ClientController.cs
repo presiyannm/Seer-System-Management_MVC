@@ -77,6 +77,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 Description = enquiryToBeChanged.Description,
                 ClientBirthDate = enquiryToBeChanged.ApplicationUserBirthday,
                 EnquiryTypeId = enquiryToBeChanged.EnquiryTypeId,
+                SeerId = enquiryToBeChanged.SeerId,
                 EnquiryTypes = await enquiryService.GetAllEnquiryTypesAsync()
             };
 

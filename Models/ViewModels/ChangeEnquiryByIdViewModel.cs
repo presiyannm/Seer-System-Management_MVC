@@ -26,7 +26,7 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
 
         public ICollection<EnquiryType>? EnquiryTypes { get; set; }
 
-        public int SeerId { get; set; }
+        public int? SeerId { get; set; }
         public IEnumerable<SelectListItem> Seers { get; set; } = new List<SelectListItem>();
 
     }
