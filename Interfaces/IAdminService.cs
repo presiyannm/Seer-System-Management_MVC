@@ -11,5 +11,9 @@ namespace Система_за_управление_на_гадатели_MVC.Int
         public Task<ICollection<ApplicationUser>> GetApplicationUsersAsync();
 
         public Task MakeSeerById(string userId);
+
+        public Task<ApplicationUser> GetUserById(string userId);
+
+        public Task RemoveUser(ApplicationUser user);
     }
 }

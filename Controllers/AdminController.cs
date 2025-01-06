@@ -93,5 +93,14 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             return RedirectToAction("SeeAllUsers");
         }
+
+        public async Task<IActionResult> DeleteUserById(string userId)
+        {
+            var user = await adminService.GetUserById(userId);
+
+            await adminService.RemoveUser(user);
+
+            return RedirectToAction("SeeAllUsers");
+        }
     }
 }

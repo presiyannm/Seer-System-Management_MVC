@@ -63,5 +63,22 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
             await context.SaveChangesAsync();
 
         }
+
+        public async Task<ApplicationUser> GetUserById(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User cannot be null");
+            }
+
+            return user;
+        }
+
+        public async Task RemoveUser(ApplicationUser user)
+        {
+            await userManager.DeleteAsync(user);
+        }
     }
 }
