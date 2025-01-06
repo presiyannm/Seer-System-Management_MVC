@@ -1,4 +1,10 @@
 ﻿@model AccountLoginViewModel
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 
 <!DOCTYPE html>
 <html>

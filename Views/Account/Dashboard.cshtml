@@ -1,0 +1,28 @@
+﻿@model DashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Account</title>
+    <link rel="stylesheet" href="~/css/Account/Dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-title">Профил</div>
+        <div class="dashboard-subtitle">табло</div>
+
+        <div class="dashboard-section">
+            <a asp-action="ResetPassword" asp-controller="Account" class="dashboard-link">Смяна на парола</a>
+        </div>
+        <div class="dashboard-section">
+            <a href="#" class="dashboard-link">Смяна на емайл</a>
+        </div>
+
+        <div class="dashboard-section">
+            <a href="#" class="dashboard-link">Смяна на информация</a>
+        </div>
+    </div>
+</body>
+</html>
