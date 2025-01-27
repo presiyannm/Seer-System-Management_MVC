@@ -1,0 +1,42 @@
+﻿@model AccountResetEmailViewModel
+
+@{
+    ViewBag.Title = "Смяна на емайл";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("ResetEmail", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OldEmail, "Текущ емайл" , new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.OldEmail, new { @class = "form-control", type = "email" })
+            @Html.ValidationMessageFor(m => m.OldEmail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, "Парола" , new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.NewEmail, "Нов емайл" ,new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.NewEmail, new { @class = "form-control", type = "email" })
+            @Html.ValidationMessageFor(m => m.NewEmail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Изпрати" />
+        </div>
+    </div>
+}

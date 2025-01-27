@@ -5,6 +5,12 @@
         @TempData["SuccessMessage"]
     </div>
 }
+@if (TempData["EmailChanged"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["EmailChanged"]
+    </div>
+}
 
 <!DOCTYPE html>
 <html>

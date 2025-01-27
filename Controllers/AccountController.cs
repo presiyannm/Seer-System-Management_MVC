@@ -77,7 +77,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
         public async Task<IActionResult> Login(AccountLoginViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.UserName);
 
@@ -184,6 +184,93 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             return View(model);
 
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult ResetEmail()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+
+        public async Task<IActionResult> ResetEmail(AccountResetEmailViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.OldEmail);
+
+            if (user is null)
+            {
+                ModelState.AddModelError(nameof(model.OldEmail), "Потребител с този емайл не е намерен.");
+
+                return View(model);
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
+
+                await _userManager.ChangeEmailAsync(user, model.NewEmail, token);
+
+                user.UserName = model.NewEmail;
+
+                await _userManager.UpdateAsync(user);
+
+                await _signInManager.SignOutAsync();
+
+                TempData["EmailChanged"] = "Your email has been successfully updated! Please log in with your new email.";
+
+                return RedirectToAction("Login", "Account");
+            }
+
+            else if(!result.Succeeded)
+            {
+                ModelState.AddModelError(nameof(model.Password), "Паролата не съвпада.");
+            }
+
+            return View(model);
+
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult ChangeUserInformation()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> ChangeUserInformation(AccountChangeUserInformationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                throw new Exception("User cannot be null");
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]
