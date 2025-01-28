@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Система_за_управление_на_гадатели_MVC.Interfaces;
@@ -18,11 +19,14 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
         private ISeersService seersService;
 
-        public AdminController(IEnquiryService enquiryService, IAdminService adminService, ISeersService seersService)
+        private UserManager<ApplicationUser> userManager;
+
+        public AdminController(IEnquiryService enquiryService, IAdminService adminService, ISeersService seersService, UserManager<ApplicationUser> userManager)
         {
             this.enquiryService = enquiryService;
             this.adminService = adminService;
             this.seersService = seersService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -96,11 +100,72 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
         public async Task<IActionResult> DeleteUserById(string userId)
         {
+            var currentUser = await userManager.GetUserAsync(User);
+
+            if (userId == currentUser.Id)
+            {
+                TempData["ErrorMessage"] = "Не можеш да изтриеш собствения си акаунт";
+                return RedirectToAction("SeeAllUsers");
+            }
+
             var user = await adminService.GetUserById(userId);
 
             await adminService.RemoveUser(user);
 
             return RedirectToAction("SeeAllUsers");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUserById(string userId)
+        {
+            var user = await adminService.GetUserById(userId);
+
+            var roles = await adminService.GetAllRolesAsync();
+
+            var currentRoles = await userManager.GetRolesAsync(user);
+
+            int selectedRoleIndex = 0;
+            if (currentRoles.Any())
+            {
+                var currentRoleName = currentRoles.First();
+                var currentRole = roles.FirstOrDefault(r => r.Name == currentRoleName);
+                if (currentRole != null)
+                {
+                    selectedRoleIndex = roles.IndexOf(currentRole);
+                }
+            }
+
+            var viewModel = new EditUserViewModel()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Username = user.UserName,
+                Roles = roles.Select((role, index) => new SelectListItem
+                {
+                    Text = role.Name,
+                    Value = index.ToString()
+                }).ToList(),
+                SelectedRoleIndex = selectedRoleIndex
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUserById(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await adminService.UpdateUserAsync(model);
+
+                return RedirectToAction("SeeAllUsers", "Admin");
+            }
+
+            return View(model);
+
+        }
+
     }
 }

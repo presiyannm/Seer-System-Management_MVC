@@ -2,6 +2,13 @@
 
 <h1>Списък с потребители</h1>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -31,7 +38,10 @@
                 {
                     <td>Ясновидец</td>
                 }
-                <td><a class="btn btn-danger btn-sm" asp-action="DeleteUserById" asp-route-userId="@user.Id">Изтрий</a></td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="EditUserById" asp-route-userId="@user.Id">Редактирай</a>
+                    <a class="btn btn-danger btn-sm" asp-action="DeleteUserById" asp-route-userId="@user.Id">Изтрий</a>
+                </td>
             </tr>
         }
     </tbody>
