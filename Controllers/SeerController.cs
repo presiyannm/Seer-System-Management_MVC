@@ -26,11 +26,12 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             return View(enquries);
         }
-        public async Task<IActionResult> UpdateEnquiryById(int enquiryId, string userId)
-        {
-            var seerId = await seersService.UpdateEnquiryById(enquiryId, userId);
 
-            return RedirectToAction("MySeerEnquries", new { userId = seerId });
+        [HttpPost]
+        public async Task<IActionResult> UpdateEnquiryById(int enquiryId, string userId, string answer)
+        {
+            var seerId = await seersService.UpdateEnquiryById(enquiryId, userId, answer);
+            return Json(new { success = true, userId = seerId });
         }
     }
 }

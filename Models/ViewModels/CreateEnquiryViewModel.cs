@@ -20,6 +20,10 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(500)]
+        public string WantedResult { get; set; } = string.Empty;
+
+        [Required]
         public int EnquiryTypeId { get; set; }
         public ICollection<EnquiryType>? EnquiryTypes { get; set; }
 

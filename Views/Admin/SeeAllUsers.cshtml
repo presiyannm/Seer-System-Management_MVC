@@ -1,4 +1,6 @@
-﻿@model ICollection<ApplicationUser>
+﻿@using Microsoft.AspNetCore.Identity
+@model ICollection<ApplicationUser>
+@inject UserManager<ApplicationUser> UserManager;
 
 <h1>Списък с потребители</h1>
 
@@ -16,7 +18,7 @@
             <th>Фамилия</th>
             <th>Имейл</th>
             <th>Потребителско име</th>
-            <th>Ясновидство</th>
+            <th>Роля</th>
             <th>Действие</th>
         </tr>
     </thead>
@@ -28,16 +30,19 @@
                 <td>@user.LastName</td>
                 <td>@user.Email</td>
                 <td>@user.UserName</td>
-                @if (user.Seer == null)
-                {
-                    <td>
-                        <a class="btn btn-primary btn-sm" asp-action="MakeSeerById" asp-route-userId="@user.Id">Направи ясновидец</a>
-                    </td>
-                }
-                else
-                {
-                    <td>Ясновидец</td>
-                }
+                <td>
+                    @{
+                        var userRole = await UserManager.GetRolesAsync(user);
+                        if (userRole.Any())
+                        {
+                            <span>@userRole.First()</span>
+                        }
+                        else
+                        {
+                            <span>Няма роля</span>
+                        }
+                    }
+                </td>
                 <td>
                     <a class="btn btn-warning btn-sm" asp-action="EditUserById" asp-route-userId="@user.Id">Редактирай</a>
                     <a class="btn btn-danger btn-sm" asp-action="DeleteUserById" asp-route-userId="@user.Id">Изтрий</a>

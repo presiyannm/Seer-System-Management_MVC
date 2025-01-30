@@ -3,24 +3,35 @@
 <h2>ЗАДАЙ СВОЯ ВЪПРОС</h2>
 
 <form id="create-enquiry-form" asp-action="CreateEnquiry" asp-controller="Client" method="post">
+    <!-- Client Name -->
     <div class="form-group">
         <label for="ClientName">Пълно име</label>
         <input asp-for="ClientName" class="form-control" id="ClientName" />
         <span class="text-danger" id="ClientNameError"></span>
     </div>
 
+    <!-- Client Birth Date -->
     <div class="form-group">
         <label for="ClientBirthDate">Дата на раждане</label>
         <input asp-for="ClientBirthDate" class="form-control" id="ClientBirthDate" type="date" />
         <span class="text-danger" id="ClientBirthDateError"></span>
     </div>
 
+    <!-- Description -->
     <div class="form-group">
-        <label for="Description">Желан резултат</label>
+        <label for="Description">Описание на въпроса</label>
         <textarea asp-for="Description" class="form-control" id="Description"></textarea>
         <span class="text-danger" id="DescriptionError"></span>
     </div>
 
+    <!-- Wanted Result -->
+    <div class="form-group">
+        <label for="WantedResult">Желан резултат</label>
+        <textarea asp-for="WantedResult" class="form-control" id="WantedResult"></textarea>
+        <span class="text-danger" id="WantedResultError"></span>
+    </div>
+
+    <!-- Enquiry Type -->
     <div class="form-group">
         <label for="EnquiryTypeId">Избери си вид гадаене</label>
         <select asp-for="EnquiryTypeId" class="form-control" id="EnquiryTypeId" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
@@ -29,6 +40,7 @@
         <span class="text-danger" id="EnquiryTypeIdError"></span>
     </div>
 
+    <!-- Seer -->
     <div class="form-group mb-3">
         <label for="SeerId">Избери си гадател</label>
         <select asp-for="SeerId" class="form-control" id="SeerId" asp-items="@(new SelectList(Model.Seers, "Id", "ApplicationUser.UserName"))">
@@ -37,8 +49,10 @@
         <span class="text-danger" id="SeerIdError"></span>
     </div>
 
+    <!-- Hidden ClientId -->
     <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
 
+    <!-- Submit Button -->
     <button type="submit" class="btn btn-success">Изпрати</button>
 </form>
 

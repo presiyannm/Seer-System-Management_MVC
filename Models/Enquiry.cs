@@ -10,16 +10,13 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string ClientName { get; set; } = string.Empty;
 
-        [Required]
         public int EnquiryTypeId { get; set; }
 
         [ForeignKey(nameof(EnquiryTypeId))]
         public EnquiryType EnquiryType { get; set; } = null!;
 
-        [Required]
         public int EnquiryStatusId { get ; set; }
 
         [ForeignKey(nameof(EnquiryStatusId))]
@@ -30,17 +27,17 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
-        [Required]
         public int SeerId { get; set; }
 
         [ForeignKey(nameof(SeerId))]
         public Seer Seer { get; set; }
 
-        [Required]
-        [MaxLength(500)]
         public string Description { get; set; }
 
-        [Required]
+        public string WantedResult { get; set; }
+
+        public string? Answer { get; set; }
+
         public DateTime ApplicationUserBirthday {  get; set; } 
 
         public DateTime? EnquirySentToCheck { get; set; }

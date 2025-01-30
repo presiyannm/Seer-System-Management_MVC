@@ -43,36 +43,6 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
             return users;
         }
 
-        public async Task MakeSeerById(string userId)
-        {
-            var user = await context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == userId);
-
-            if (user == null)
-            {
-                throw new Exception("User cannot be null");
-            }
-
-            var currentRoles = await userManager.GetRolesAsync(user);
-
-            if (currentRoles.Any())
-            {
-                await userManager.RemoveFromRolesAsync(user, currentRoles);
-            }
-
-            var seerToAdd = new Seer()
-            {
-                ApplicationUserId = userId,
-                ApplicationUser = user
-            };
-
-            await context.Seers.AddAsync(seerToAdd);
-
-            await userManager.AddToRoleAsync(user, "Seer");
-
-            await context.SaveChangesAsync();
-
-        }
-
         public async Task<ApplicationUser> GetUserById(string userId)
         {
             var user = await userManager.FindByIdAsync(userId);

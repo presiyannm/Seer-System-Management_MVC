@@ -9,6 +9,8 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         [Key]
         public int Id { get; set; }
 
+        public List<double>? Rating { get; set; }
+        
         [Required]
         public string ApplicationUserId { get; set; }
 

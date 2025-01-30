@@ -27,6 +27,7 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
         public async Task<Seer> GetSeerByIdAsync(string userId)
         {
             var seer = await context.Seers.FirstOrDefaultAsync(x => x.ApplicationUserId == userId);
+
             if (seer == null)
             {
                 throw new Exception("Seer is null");
@@ -49,11 +50,12 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
             return enquries;
         }
 
-        public async Task<string> UpdateEnquiryById(int enquiryId, string userId)
+        public async Task<string> UpdateEnquiryById(int enquiryId, string userId, string? answer)
         {
             var enquiryToUpdate = await enquiryService.GetEnquiryByIdAsync(enquiryId, userId);
 
-            var currentSeer = await context.Seers.FirstOrDefaultAsync(x => x.Id == enquiryToUpdate.SeerId);
+            var currentSeer = await context.Seers
+                .FirstOrDefaultAsync(x => x.Id == enquiryToUpdate.SeerId);
 
             if (currentSeer == null)
             {
@@ -74,6 +76,7 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
                 case 3:
                     enquiryToUpdate.EnquiryStatusId = 4;
                     enquiryToUpdate.EnquiryCheckFinished = DateTime.Now;
+                    enquiryToUpdate.Answer = answer;
                     break;
             }
 
@@ -83,3 +86,4 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
         }
     }
 }
+

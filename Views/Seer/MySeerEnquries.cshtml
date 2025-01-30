@@ -37,7 +37,11 @@ else
                     <td>
                         @if (enquiry.EnquiryStatusId >= 1 && enquiry.EnquiryStatusId <= 3)
                         {
-                            <a class="btn btn-primary btn-sm" asp-action="UpdateEnquiryById" asp-route-enquiryId="@enquiry.Id" asp-route-userId="@enquiry.ApplicationUserId">Промяна</a>
+                            <a class="btn btn-primary btn-sm" onclick="showAnswerBox(@enquiry.Id)">Промяна</a>
+                            <div id="answerBox-@enquiry.Id" style="display: none;">
+                                <textarea id="answerText-@enquiry.Id" placeholder="Въведете вашето гадателство..."></textarea>
+                                <button class="btn btn-success btn-sm" onclick="submitAnswer(@enquiry.Id, '@enquiry.ApplicationUserId')">Изпрати</button>
+                            </div>
                         }
                     </td>
                 </tr>
@@ -45,3 +49,46 @@ else
         </tbody>
     </table>
 }
+
+<script>
+    function showAnswerBox(enquiryId) {
+        // Hide all other answer boxes
+        document.querySelectorAll('[id^="answerBox-"]').forEach(box => {
+            box.style.display = 'none';
+        });
+
+        // Show the answer box for the specific enquiry
+        const answerBox = document.getElementById(`answerBox-${enquiryId}`);
+        answerBox.style.display = 'block';
+    }
+
+    function submitAnswer(enquiryId, userId) {
+        const answerText = document.getElementById(`answerText-${enquiryId}`).value;
+
+        if (!answerText) {
+            alert("Моля, въведете вашето гадателство.");
+            return;
+        }
+
+        // Send the answer to the server using AJAX
+        fetch(`/Seer/UpdateEnquiryById?enquiryId=${enquiryId}&userId=${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(answerText)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Гадателството е изпратено успешно!");
+                location.reload(); // Refresh the page to reflect changes
+            } else {
+                alert("Възникна грешка при изпращането на гадателството.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>

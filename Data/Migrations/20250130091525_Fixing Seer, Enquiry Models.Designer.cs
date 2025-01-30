@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Система_за_управление_на_гадатели_MVC.Data;
 
@@ -11,9 +12,11 @@ using Система_за_управление_на_гадатели_MVC.Data;
 namespace Система_за_управление_на_гадатели_MVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250130091525_Fixing Seer, Enquiry Models")]
+    partial class FixingSeerEnquiryModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,9 +244,6 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("ApplicationUserBirthday")
                         .HasColumnType("datetime2");
 
@@ -409,8 +409,8 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Rating")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

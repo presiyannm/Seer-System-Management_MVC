@@ -48,6 +48,7 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
             {
                 ApplicationUserId = model.ClientId,
                 Description = model.Description,
+                WantedResult = model.WantedResult,
                 ApplicationUserBirthday = model.ClientBirthDate,
                 EnquiryStatusId = 1,
                 EnquiryTypeId = model.EnquiryTypeId,
