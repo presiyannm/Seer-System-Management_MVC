@@ -9,11 +9,11 @@ using Система_за_управление_на_гадатели_MVC.Data;
 
 #nullable disable
 
-namespace Система_за_управление_на_гадатели_MVC.Data.Migrations
+namespace Система_за_управление_на_гадатели_MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250130092749_Still fixing Enquiry")]
-    partial class StillfixingEnquiry
+    [Migration("20250131083219_Updated-Seer")]
+    partial class UpdatedSeer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -414,6 +414,9 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
+
+                    b.Property<string>("SumOfRating")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -9,11 +9,11 @@ using Система_за_управление_на_гадатели_MVC.Data;
 
 #nullable disable
 
-namespace Система_за_управление_на_гадатели_MVC.Data.Migrations
+namespace Система_за_управление_на_гадатели_MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241211081913_FixedEnquiryDescription")]
-    partial class FixedEnquiryDescription
+    [Migration("20250131082718_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -244,6 +244,9 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ApplicationUserBirthday")
                         .HasColumnType("datetime2");
 
@@ -251,10 +254,13 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EnquiryCheckFinished")
                         .HasColumnType("datetime2");
@@ -273,6 +279,10 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
 
                     b.Property<int>("SeerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("WantedResult")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -402,9 +412,13 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
 
                     b.ToTable("Seers");
                 });
@@ -513,8 +527,8 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
             modelBuilder.Entity("Система_за_управление_на_гадатели_MVC.Models.Seer", b =>
                 {
                     b.HasOne("Система_за_управление_на_гадатели_MVC.Models.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
+                        .WithOne("Seer")
+                        .HasForeignKey("Система_за_управление_на_гадатели_MVC.Models.Seer", "ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -524,6 +538,11 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
             modelBuilder.Entity("Система_за_управление_на_гадатели_MVC.Models.Seer", b =>
                 {
                     b.Navigation("Enquiries");
+                });
+
+            modelBuilder.Entity("Система_за_управление_на_гадатели_MVC.Models.Identity.ApplicationUser", b =>
+                {
+                    b.Navigation("Seer");
                 });
 #pragma warning restore 612, 618
         }

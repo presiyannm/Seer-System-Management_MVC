@@ -26,7 +26,7 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
 
         public async Task<Seer> GetSeerByIdAsync(string userId)
         {
-            var seer = await context.Seers.FirstOrDefaultAsync(x => x.ApplicationUserId == userId);
+            var seer = await context.Seers.Where(x => x.ApplicationUserId == userId).FirstOrDefaultAsync();
 
             if (seer == null)
             {

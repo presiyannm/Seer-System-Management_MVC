@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Система_за_управление_на_гадатели_MVC.Data;
 
 #nullable disable
 
-namespace Система_за_управление_на_гадатели_MVC.Data.Migrations
+namespace Система_за_управление_на_гадатели_MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241230163516_Fixed User")]
-    partial class FixedUser
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,6 +241,9 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ApplicationUserBirthday")
                         .HasColumnType("datetime2");
 
@@ -257,8 +257,7 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EnquiryCheckFinished")
                         .HasColumnType("datetime2");
@@ -277,6 +276,10 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
 
                     b.Property<int>("SeerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("WantedResult")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -405,6 +408,12 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                     b.Property<string>("ApplicationUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SumOfRating")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
