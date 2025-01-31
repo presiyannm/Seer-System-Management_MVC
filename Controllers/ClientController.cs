@@ -105,5 +105,25 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             return RedirectToAction("ShowMyEnquries", new { userId = userId });
         }
+
+        [HttpGet]
+        public IActionResult RateSeerBySeerId(int seerId)
+        {
+            ViewBag.SeerId = seerId;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RateSeerBySeerId(AddSeerRatingViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                 await seersService.AddSeerRatingAsync(model.SeerId, model.Rating);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
     }
 }

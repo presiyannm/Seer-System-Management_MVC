@@ -1,0 +1,34 @@
+﻿@model AddSeerRatingViewModel
+
+@{
+    ViewData["Title"] = "Оцени Гадател";
+}
+
+<h2>Оцени Гадател</h2>
+
+<form asp-action="RateSeerBySeerId" asp-controller="Client" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <!-- Hidden field for SeerId -->
+    <input type="hidden" asp-for="SeerId" value="@ViewBag.SeerId" />
+
+    <div class="form-group">
+        <label asp-for="Rating" class="control-label">Оценка</label>
+        <input asp-for="Rating" class="form-control" />
+        <span asp-validation-for="Rating" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Запази Оценката</button>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Назад към Списъка</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

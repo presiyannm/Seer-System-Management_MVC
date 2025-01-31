@@ -84,6 +84,32 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
 
             return currentSeer.ApplicationUserId;
         }
+
+        public async Task<Seer> GetSeerByIdAsync(int seerId)
+        {
+            var seer = await context.Seers.FirstOrDefaultAsync(s => s.Id == seerId);
+
+            if (seer is null)
+            {
+                throw new Exception("Seer cannot be null");
+            }
+
+            return seer;
+        }
+
+        public async Task AddSeerRatingAsync(int seerId, double rating)
+        {
+            var seer = await GetSeerByIdAsync(seerId);
+
+            if(seer.SumOfRating is null)
+            {
+                seer.SumOfRating = new List<double>();
+            }
+
+            seer.SumOfRating.Add(rating);
+
+            await context.SaveChangesAsync();
+        }
     }
 }
 

@@ -5,23 +5,23 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
 {
     public class ChangeEnquiryByIdViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         public int EnquiryId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         public string ClientId { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         public string ClientName { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.DateTime)]
         public DateTime ClientBirthDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         public string Description { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         public int EnquiryTypeId { get; set; }
 
         public ICollection<EnquiryType>? EnquiryTypes { get; set; }

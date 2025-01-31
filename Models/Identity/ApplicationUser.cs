@@ -11,6 +11,8 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
         [Required]
         public string LastName { get; set; } = string.Empty;
 
+        public string AccountPhoto { get; set; } = string.Empty;
+
         public Seer? Seer { get; set; }
 
     }

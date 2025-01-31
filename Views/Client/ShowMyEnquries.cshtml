@@ -23,9 +23,10 @@
                     <!-- Rating Button -->
                     <div>
                         <a class="btn btn-warning btn-sm"
-                           asp-action="RateSeer"
-                           asp-route-enquiryId="@enquiry.Id"
-                           asp-route-userId="@User.Id()">Оцени гадателя</a>
+                           asp-action="RateSeerBySeerId"
+                           asp-route-seerId="@enquiry.Seer.Id">
+                            Оцени гадателя
+                       </a>
                     </div>
 
                     <!-- Optional: you can add a separator for visual clarity -->

@@ -36,30 +36,67 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         [HttpPost]
         public async Task<IActionResult> Register(AccountRegisterViewModel model)
         {
-
             if (ModelState.IsValid)
             {
+                // Handle the file upload
+                if (model.AccountPhotoFile != null && model.AccountPhotoFile.Length > 0)
+                {
+                    // Ensure the "images/AccountPhotos" directory exists
+                    var uploadsFolder = Path.Combine("wwwroot", "images", "AccountPhotos");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    // Generate a unique file name
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + model.AccountPhotoFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    // Save the file to the server
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.AccountPhotoFile.CopyToAsync(fileStream);
+                    }
+
+                    // Set the AccountPhoto property to the file path
+                    model.AccountPhoto = Path.Combine("images", "AccountPhotos", uniqueFileName).Replace("\\", "/");
+                }
+
+                // Create the ApplicationUser
                 var user = new ApplicationUser
                 {
                     UserName = model.UserName,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.EmailAddress,
+                    AccountPhoto = model.AccountPhoto // Set the photo path
                 };
 
+                // Create the user and add to the "Client" role
                 if (model.Password == model.ConfirmPassword)
                 {
-                    await _userManager.CreateAsync(user, model.Password);
-
-                    await _userManager.AddToRoleAsync(user, "Client");
-
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Client");
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
                 }
-
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("Index", "Home");
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Паролите не съвпадат.");
+                }
             }
 
+            // If we got this far, something failed; redisplay the form
             return View(model);
         }
 

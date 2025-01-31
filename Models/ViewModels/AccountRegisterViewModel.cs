@@ -21,5 +21,11 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
 
         [EmailAddress]
         public string EmailAddress { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Моля, качете снимка на профила.")]
+        [DataType(DataType.Upload)]
+        public IFormFile AccountPhotoFile { get; set; } = null!;
+
+        public string AccountPhoto { get; set; } = string.Empty;
     }
 }
