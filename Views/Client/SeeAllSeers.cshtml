@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Система_за_управление_на_гадатели_MVC.Models.Seer>
+
+@{
+    ViewData["Title"] = "Всички гадатели";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Списък с гадатели</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var seer in Model)
+        {
+            if (seer.ApplicationUser != null)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="~/images/AccountPhotos/@seer.ApplicationUser.AccountPhoto"
+                             class="card-img-top rounded-circle mx-auto d-block mt-3"
+                             alt="@seer.ApplicationUser.FirstName @seer.ApplicationUser.LastName"
+                             style="width: 100px; height: 100px; object-fit: cover;" />
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@seer.ApplicationUser.FirstName @seer.ApplicationUser.LastName</h5>
+
+                            <div class="d-flex justify-content-center align-items-center">
+                                @{
+                                    double currSeerRating = seer.SumOfRating?.Average() ?? 0;
+                                    int fullStars = (int)Math.Floor(currSeerRating);
+                                    int halfStar = (currSeerRating - fullStars) >= 0.5 ? 1 : 0;
+                                    int emptyStars = 5 - fullStars - halfStar;
+
+                                    for (int i = 0; i < fullStars; i++)
+                                    {
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    }
+
+                                    if (halfStar == 1)
+                                    {
+                                        <i class="bi bi-star-half text-warning"></i>
+                                    }
+
+                                    for (int i = 0; i < emptyStars; i++)
+                                    {
+                                        <i class="bi bi-star text-warning"></i>
+                                    }
+                                }
+                            </div>
+                            <p class="card-text mt-2">Рейтинг: @currSeerRating.ToString("0.0")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

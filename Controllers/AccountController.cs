@@ -59,7 +59,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                     }
 
                     // Set the AccountPhoto property to the file path
-                    model.AccountPhoto = Path.Combine("images", "AccountPhotos", uniqueFileName).Replace("\\", "/");
+                    model.AccountPhoto = uniqueFileName;
                 }
 
                 // Create the ApplicationUser

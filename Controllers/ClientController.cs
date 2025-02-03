@@ -125,5 +125,13 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SeeAllSeers()
+        {
+            var seers = await seersService.GetAllSeersAsync();
+
+            return View(seers);
+        }
     }
 }

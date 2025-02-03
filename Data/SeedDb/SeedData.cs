@@ -31,7 +31,10 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                 adminUser = new ApplicationUser
                 {
                     UserName = "admin@domain.com",
-                    Email = "admin@domain.com"
+                    Email = "admin@domain.com",
+                    AccountPhoto = "AdminDefault.png",
+                    FirstName = "Админ",
+                    LastName = "Админов"
                 };
 
                 var result = await userManager.CreateAsync(adminUser, "AdminPassword123!");
@@ -49,7 +52,10 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                 regularUser = new ApplicationUser
                 {
                     UserName = "client@domain.com",
-                    Email = "client@domain.com"
+                    Email = "client@domain.com",
+                    AccountPhoto = "RegularDefault.png",
+                    FirstName = "Петър",
+                    LastName = "Дамянов"
                 };
 
                 var result = await userManager.CreateAsync(regularUser, "ClientPassword123!");
@@ -67,7 +73,10 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                 seer = new ApplicationUser
                 {
                     UserName = "seer@domain.com",
-                    Email = "seer@domain.com"
+                    Email = "seer@domain.com",
+                    AccountPhoto = "SeerDefault.png",
+                    FirstName = "Иван",
+                    LastName = "Мистични"
                 };
 
                 var result = await userManager.CreateAsync(seer, "SeerPassword123!");

@@ -4,24 +4,33 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" title="Manage" asp-action="Dashboard" asp-controller="Account">Здравей, @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-controller="Account" asp-action="SignOut">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Изход</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Регистрирай се</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вход</a>
-    </li>
-}
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+
+        <li class="nav-item d-flex align-items-center">
+            <img src="~/images/AccountPhotos/@user.AccountPhoto"
+                 alt="Profile Picture"
+                 class="rounded-circle me-2"
+                 style="width: 35px; height: 35px; object-fit: cover;" />
+
+            <a class="nav-link text-dark" title="Manage" asp-action="Dashboard" asp-controller="Account">
+                Здравей, @User.Identity?.Name!
+            </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-controller="Account" asp-action="SignOut">
+                <button type="submit" class="nav-link btn btn-link text-dark">Изход</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Регистрирай се</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вход</a>
+        </li>
+    }
 </ul>

@@ -1,6 +1,5 @@
 ﻿function showAnswerBox(enquiryId, enquiryStatusId, userId) {
     // If the status is 3, show the answer box
-
     if (enquiryStatusId === 3) {
         // Hide all other answer boxes
         document.querySelectorAll('[id^="answerBox-"]').forEach(box => {
@@ -21,10 +20,8 @@
                     'userId': userId,
                     'answer': null
                 },
-                success: () => {
-                    location.reload();
-                },
             });
+        location.reload();
     }
 }
 
@@ -46,8 +43,6 @@ function submitAnswer(enquiryId, userId) {
                 'userId': userId,
                 'answer': answerText
             },
-            success: () => {
-                location.reload();
-            },
         });
+    location.reload();
 }
