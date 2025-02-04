@@ -30,7 +30,7 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
             {
                 adminUser = new ApplicationUser
                 {
-                    UserName = "admin@domain.com",
+                    UserName = "admin",
                     Email = "admin@domain.com",
                     AccountPhoto = "AdminDefault.png",
                     FirstName = "Админ",
@@ -51,7 +51,7 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
             {
                 regularUser = new ApplicationUser
                 {
-                    UserName = "client@domain.com",
+                    UserName = "client",
                     Email = "client@domain.com",
                     AccountPhoto = "RegularDefault.png",
                     FirstName = "Петър",
@@ -72,7 +72,7 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
             {
                 seer = new ApplicationUser
                 {
-                    UserName = "seer@domain.com",
+                    UserName = "seer",
                     Email = "seer@domain.com",
                     AccountPhoto = "SeerDefault.png",
                     FirstName = "Иван",

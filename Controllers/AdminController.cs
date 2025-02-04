@@ -84,11 +84,57 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         }
 
         [HttpGet]
-        public async Task<IActionResult> SeeAllUsers()
+        public async Task<IActionResult> SeeAllUsers(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
+            // Sorting logic
+            ViewData["FirstNameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "first_desc" : "";
+            ViewData["LastNameSortParam"] = sortOrder == "last_asc" ? "last_desc" : "last_asc";
+
+            // Filtering logic
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
             var users = await adminService.GetApplicationUsersAsync();
 
-            return View(users);
+            // Search logic
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(u => u.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                         u.LastName.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            // Sorting logic
+            switch (sortOrder)
+            {
+                case "first_desc":
+                    users = users.OrderByDescending(u => u.FirstName).ToList();
+                    break;
+                case "last_asc":
+                    users = users.OrderBy(u => u.LastName).ToList();
+                    break;
+                case "last_desc":
+                    users = users.OrderByDescending(u => u.LastName).ToList();
+                    break;
+                default:
+                    users = users.OrderBy(u => u.FirstName).ToList();
+                    break;
+            }
+
+            // Pagination logic
+            int pageSize = 2; // Number of items per page
+            return View(PaginatedList<ApplicationUser>.Create(users.AsQueryable(), pageNumber ?? 1, pageSize));
         }
 
         public async Task<IActionResult> DeleteUserById(string userId)

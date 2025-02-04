@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model ICollection<ApplicationUser>
-@inject UserManager<ApplicationUser> UserManager;
+@model PaginatedList<ApplicationUser>
+@inject UserManager<ApplicationUser> UserManager
 
 <h1>Списък с потребители</h1>
 
@@ -11,11 +11,37 @@
     </div>
 }
 
+<!-- Search Bar -->
+<form asp-action="SeeAllUsers" method="get">
+    <div class="form-group row mb-3">
+        <div class="col-sm-6">
+            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Търси по име или фамилия..." class="form-control" />
+        </div>
+        <div class="col-sm-6">
+            <button type="submit" class="btn btn-primary">Търси</button>
+            <a asp-action="SeeAllUsers" class="btn btn-secondary">Изчисти</a>
+        </div>
+    </div>
+</form>
+
+<!-- Table -->
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Име</th>
-            <th>Фамилия</th>
+            <th>
+                <a asp-action="SeeAllUsers"
+                   asp-route-sortOrder="@ViewData["FirstNameSortParam"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Име
+                </a>
+            </th>
+            <th>
+                <a asp-action="SeeAllUsers"
+                   asp-route-sortOrder="@ViewData["LastNameSortParam"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Фамилия
+                </a>
+            </th>
             <th>Имейл</th>
             <th>Потребителско име</th>
             <th>Роля</th>
@@ -51,3 +77,32 @@
         }
     </tbody>
 </table>
+
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="SeeAllUsers"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-primary @prevDisabled">
+            Предишна
+        </a>
+        <a asp-action="SeeAllUsers"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-primary @nextDisabled">
+            Следваща
+        </a>
+    </div>
+
+    <div>
+        Страница @(Model.PageIndex) от @(Model.TotalPages)
+    </div>
+</div>
