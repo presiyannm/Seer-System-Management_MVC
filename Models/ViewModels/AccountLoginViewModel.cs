@@ -4,10 +4,10 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
 {
     public class AccountLoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         public string UserName { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
     }

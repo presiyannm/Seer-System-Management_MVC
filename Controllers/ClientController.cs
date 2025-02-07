@@ -46,7 +46,8 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("CreateEnquiry", new { userId = model.ClientId });
+            return View(model);
+            //return RedirectToAction("CreateEnquiry", new { userId = model.ClientId });
         }
 
         [HttpGet]

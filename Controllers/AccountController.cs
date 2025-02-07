@@ -155,6 +155,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
+                PhotoFileName = user.AccountPhoto,
                 Roles = await _userManager.GetRolesAsync(user)
             };
 
@@ -258,13 +259,11 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
                 await _userManager.ChangeEmailAsync(user, model.NewEmail, token);
 
-                user.UserName = model.NewEmail;
-
                 await _userManager.UpdateAsync(user);
 
                 await _signInManager.SignOutAsync();
 
-                TempData["EmailChanged"] = "Your email has been successfully updated! Please log in with your new email.";
+                TempData["EmailChanged"] = "Your email has been successfully updated!";
 
                 return RedirectToAction("Login", "Account");
             }

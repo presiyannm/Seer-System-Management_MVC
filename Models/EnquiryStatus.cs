@@ -6,8 +6,6 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         public string Status {  get; set; }
     }
 }

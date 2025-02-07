@@ -1,8 +1,7 @@
 ﻿@model CreateEnquiryViewModel
 
 <h2>ЗАДАЙ СВОЯ ВЪПРОС</h2>
-
-<form id="create-enquiry-form" asp-action="CreateEnquiry" asp-controller="Client" method="post">
+<form id="create-enquiry-form" asp-action="CreateEnquiry" asp-controller="Client" method="post" novalidate>
     <!-- Client Name -->
     <div class="form-group">
         <label for="ClientName">Пълно име</label>
@@ -56,4 +55,5 @@
     <button type="submit" class="btn btn-success">Изпрати</button>
 </form>
 
-<script src="~/js/Enquiry/CreateEnquiryValidation.js"></script>
+<!-- Link to the external JavaScript file -->
+<script src="~/js/Client/CreateEnquiryValidation.js"></script>

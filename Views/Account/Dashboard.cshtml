@@ -1,5 +1,4 @@
 ﻿@model DashboardViewModel
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +9,27 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <div class="dashboard-title">Профил</div>
-        <div class="dashboard-subtitle">табло</div>
+        <!-- Profile Photo -->
+        <div class="profile-photo">
+            <img src="@(string.IsNullOrEmpty(Model.PhotoFileName) ? "/images/AccountPhotos/default.jpg" : $"/images/AccountPhotos/{Model.PhotoFileName}")" alt="Profile Photo" class="profile-image">
+        </div>
 
+        <!-- User Information -->
+        <div class="user-info">
+            <div class="info-item"><strong>Потребителско име:</strong> @Model.UserName</div>
+            <div class="info-item"><strong>Име:</strong> @Model.FirstName</div>
+            <div class="info-item"><strong>Фамилия:</strong> @Model.LastName</div>
+            <div class="info-item"><strong>Емайл:</strong> @Model.Email</div>
+            <div class="info-item"><strong>Роли:</strong> @(string.Join(", ", Model.Roles))</div>
+        </div>
+
+        <!-- Dashboard Actions -->
         <div class="dashboard-section">
             <a asp-action="ResetPassword" asp-controller="Account" class="dashboard-link">Смяна на парола</a>
         </div>
         <div class="dashboard-section">
             <a asp-action="ResetEmail" asp-controller="Account" class="dashboard-link">Смяна на емайл</a>
         </div>
-
         <div class="dashboard-section">
             <a asp-action="ChangeUserInformation" asp-controller="Account" class="dashboard-link">Смяна на информация</a>
         </div>

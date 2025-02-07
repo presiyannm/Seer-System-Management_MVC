@@ -2,44 +2,58 @@
 
 <h1>Промяна на въпрос</h1>
 <p class="text-muted">Администраторска страница за промяна на въпрос на клиент.</p>
-
-<form asp-action="ChangeEnquiryById" method="post">
+<form id="change-enquiry-form" asp-action="ChangeEnquiryById" method="post" novalidate>
+    <!-- Client Name -->
     <div class="form-group">
         <label asp-for="ClientName" class="control-label">Име на клиента</label>
-        <input asp-for="ClientName" class="form-control" />
+        <input asp-for="ClientName" class="form-control" id="ClientName" />
+        <span class="text-danger" id="ClientNameError"></span>
     </div>
 
+    <!-- Client Birth Date -->
     <div class="form-group">
         <label asp-for="ClientBirthDate" class="control-label">Рождена дата на клиента</label>
-        <input asp-for="ClientBirthDate" class="form-control" type="date" />
+        <input asp-for="ClientBirthDate" class="form-control" id="ClientBirthDate" type="date" />
+        <span class="text-danger" id="ClientBirthDateError"></span>
     </div>
 
+    <!-- Description -->
     <div class="form-group">
         <label asp-for="Description" class="control-label">Описание на въпроса</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
+        <textarea asp-for="Description" class="form-control" id="Description"></textarea>
+        <span class="text-danger" id="DescriptionError"></span>
     </div>
 
+    <!-- Enquiry Type -->
     <div class="form-group mb-3">
         <label asp-for="EnquiryTypeId" class="control-label">Тип въпрос</label>
-        <select asp-for="EnquiryTypeId" class="form-control" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
+        <select asp-for="EnquiryTypeId" class="form-control" id="EnquiryTypeId" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
             <option value="" disabled selected>-- Изберете тип --</option>
         </select>
+        <span class="text-danger" id="EnquiryTypeIdError"></span>
     </div>
 
+    <!-- Seer -->
     <div class="form-group mb-3">
         <label asp-for="SeerId" class="control-label">Избери ясновидец</label>
-        <select asp-for="SeerId" class="form-control" asp-items="Model.Seers">
+        <select asp-for="SeerId" class="form-control" id="SeerId" asp-items="Model.Seers">
             <option value="">-- Изберете ясновидец --</option>
         </select>
-        <span asp-validation-for="SeerId" class="text-danger"></span>
+        <span class="text-danger" id="SeerIdError"></span>
     </div>
 
+    <!-- Hidden Fields -->
     <input type="hidden" asp-for="EnquiryId" value="@Model.EnquiryId" />
     <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
 
+    <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Запази промените</button>
 </form>
 
+<!-- Back Link -->
 <div class="mt-3">
     <a asp-action="SeeAllEnquries" asp-controller="Admin" class="btn btn-secondary">Назад към списъка с въпроси</a>
 </div>
+
+<!-- Link to the external JavaScript file -->
+<script src="~/js/Admin/ChangeEnquiryByIdValidation.js"></script>

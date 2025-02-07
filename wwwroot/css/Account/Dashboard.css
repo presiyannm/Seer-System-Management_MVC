@@ -22,8 +22,42 @@
     margin-bottom: 25px;
 }
 
-.dashboard-section {
+/* Profile Photo */
+.profile-photo {
     margin-bottom: 20px;
+}
+
+.profile-image {
+    max-width: 150px; /* Limit the maximum width */
+    max-height: 150px; /* Limit the maximum height */
+    width: 100%; /* Ensure it scales responsively */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Crop the image to fit the circle */
+    border-radius: 50%; /* Make the image circular */
+    border: 3px solid #4CAF50; /* Add a border for emphasis */
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4); /* Add a subtle shadow */
+}
+
+/* User Information */
+.user-info {
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+}
+
+.info-item {
+    margin-bottom: 10px;
+}
+
+    .info-item strong {
+        color: #4CAF50;
+        margin-right: 5px;
+    }
+
+/* Dashboard Links */
+.dashboard-section {
+    margin-bottom: 15px;
 }
 
 .dashboard-link {
