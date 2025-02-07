@@ -301,9 +301,37 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 throw new Exception("User cannot be null");
             }
 
+            // Update first name and last name
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
 
+            // Handle profile photo upload
+            if (model.ProfilePhoto != null && model.ProfilePhoto.Length > 0)
+            {
+                // Define the path to save the uploaded file
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "AccountPhotos");
+
+                // Ensure the folder exists
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                // Generate a unique file name to avoid conflicts
+                var uniqueFileName = $"{Guid.NewGuid()}_{model.ProfilePhoto.FileName}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Save the file to the server
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ProfilePhoto.CopyToAsync(fileStream);
+                }
+
+                // Update the user's photo file name in the database
+                user.AccountPhoto = uniqueFileName;
+            }
+
+            // Save changes to the database
             await _userManager.UpdateAsync(user);
 
             return RedirectToAction("Index", "Home");

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace Система_за_управление_на_гадатели_MVC.Models.ViewModels
 {
@@ -9,5 +10,8 @@ namespace Система_за_управление_на_гадатели_MVC.Mod
 
         [Required(ErrorMessage = "Полето е задължително")]
         public string LastName { get; set; } = string.Empty;
+
+        // Property for uploading the profile photo
+        public IFormFile? ProfilePhoto { get; set; }
     }
 }

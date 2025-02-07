@@ -1,25 +1,34 @@
 ﻿@model AccountChangeUserInformationViewModel
 
 <h2 class="text-center">Смяна на информация</h2>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="border p-4 rounded">
-                <form method="post" asp-action="ChangeUserInformation">
+                <form method="post" asp-action="ChangeUserInformation" enctype="multipart/form-data">
+                    <!-- First Name -->
                     <div class="form-group">
-                        <label for="FirstName">First Name</label>
-                        <input type="text" asp-for="FirstName" class="form-control" id="FirstName" name="FirstName"/>
+                        <label for="FirstName">Име</label>
+                        <input type="text" asp-for="FirstName" class="form-control" id="FirstName" />
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
 
+                    <!-- Last Name -->
                     <div class="form-group mb-3">
-                        <label for="LastName">Last Name</label>
-                        <input type="text" asp-for="LastName" class="form-control" id="LastName" name="LastName"/>
+                        <label for="LastName">Фамилия</label>
+                        <input type="text" asp-for="LastName" class="form-control" id="LastName" />
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <!-- Profile Photo -->
+                    <div class="form-group mb-3">
+                        <label for="ProfilePhoto">Профилна снимка</label>
+                        <input type="file" asp-for="ProfilePhoto" class="form-control" id="ProfilePhoto" accept="image/*" />
+                        <small class="text-muted">Моля, изберете изображение във формат JPG, PNG или GIF.</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">Запази промените</button>
                 </form>
             </div>
         </div>
