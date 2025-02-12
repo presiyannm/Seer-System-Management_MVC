@@ -3,7 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+<ul>
     @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
@@ -14,23 +14,23 @@
                  class="rounded-circle me-2"
                  style="width: 35px; height: 35px; object-fit: cover;" />
 
-            <a class="nav-link text-dark" title="Manage" asp-action="Dashboard" asp-controller="Account">
+            <a title="Manage" asp-action="Dashboard" asp-controller="Account">
                 Здравей, @User.Identity?.Name!
             </a>
         </li>
-        <li class="nav-item">
+        <li>
             <form class="form-inline" asp-controller="Account" asp-action="SignOut">
-                <button type="submit" class="nav-link btn btn-link text-dark">Изход</button>
+                <button type="submit" class="btn cta-btn">Изход</button>
             </form>
         </li>
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Регистрирай се</a>
+        <li>
+            <a asp-controller="Account" asp-action="Register" class="cta-btn">Регистрирай се</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вход</a>
+        <li>
+            <a asp-controller="Account" asp-action="Login" class="cta-btn">Вход</a>
         </li>
     }
 </ul>

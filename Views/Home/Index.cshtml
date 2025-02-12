@@ -6,42 +6,29 @@
     <title>Seer Enquiries</title>
     <link rel="stylesheet" href="~/css/Home/index-styles.css">
 </head>
-<body>
-    <div class="content-wrapper">
-        <div class="text-content">
-            <h1>Сега е твоето време!</h1>
-            <p>Нека магията на бъдещето ти разкрие своите тайни. Въведи въпрос и остави вселената да ти отговори!</p>
+<body class="light-background">
+    <section id="hero" class="hero section dark-background">
 
-            <h2>Какво те чака в утрешния ден?</h2>
-            <p>Смело се потопи в света на мистиката и открий какво носи твоето бъдеще. Готов ли си за открития?</p>
+        <img src="~/images/hero/ff8dec1d3b3f10c855f07db02866b8df.jpg" alt="" data-aos="fade-in">
 
-            <h3>Съдбата е в твоите ръце!</h3>
-            <p>Няма никакви случайности, само възможности. Погледни в магичната сфера и виж какво ще ти разкрие тя.</p>
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a asp-controller="Client" asp-action="CreateEnquiry" asp-route-userId="@User.Id()">
-                    <div class="magic-ball-container">
-                        <div class="magic-ball" id="magic-ball">
-                            <div class="glow"></div>
+        <div class="container d-flex flex-column align-items-center text-center">
+            <h2 data-aos="fade-up" data-aos-delay="100">Сега е твоето време!</h2>
+            <p data-aos="fade-up" data-aos-delay="200">Нека магията на бъдещето ти разкрие своите тайни. Въведи въпрос и остави вселената да ти отговори!</p>
+            <div data-aos="fade-up" data-aos-delay="300">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Client" asp-action="CreateEnquiry" asp-route-userId="@User.Id()">
+                        <div class="magic-ball-container">
+                            <div class="magic-ball" id="magic-ball">
+                                <div class="glow"></div>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            }
-            @if(!User.Identity.IsAuthenticated)
-            {
-                <a asp-controller="Account" asp-action="Register">
-                    <div class="magic-ball-container">
-                        <div class="magic-ball" id="magic-ball">
-                            <div class="glow"></div>
-                        </div>
-                    </div>
-                </a>
-            }
-
-
+                    </a>
+                }
+            </div>
             <p class="call-to-action">Остави се на течението, намери своя път и разкрий магията на живота!</p>
         </div>
-    </div>
+
+    </section><!-- /Hero Section -->
 </body>
 </html>
