@@ -1,59 +1,129 @@
 ﻿@model ChangeEnquiryByIdViewModel
 
-<h1>Промяна на въпрос</h1>
-<p class="text-muted">Администраторска страница за промяна на въпрос на клиент.</p>
-<form id="change-enquiry-form" asp-action="ChangeEnquiryById" method="post" novalidate>
-    <!-- Client Name -->
-    <div class="form-group">
-        <label asp-for="ClientName" class="control-label">Име на клиента</label>
-        <input asp-for="ClientName" class="form-control" id="ClientName" />
-        <span class="text-danger" id="ClientNameError"></span>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Промяна на въпрос</title>
+    <!-- Include your CSS file -->
+    <link rel="stylesheet" href="~/css/site.css">
+</head>
+<body>
+    <!-- Change Enquiry Section -->
+    <section id="change-enquiry" class="contact section dark-background">
+        <!-- Section Title -->
+        <div class="container section-title pt-5 mt-5" data-aos="fade-up">
+            <h2>Промяна на въпрос</h2>
+            <p>Администраторска страница за промяна на въпрос на клиент.</p>
+        </div><!-- End Section Title -->
 
-    <!-- Client Birth Date -->
-    <div class="form-group">
-        <label asp-for="ClientBirthDate" class="control-label">Рождена дата на клиента</label>
-        <input asp-for="ClientBirthDate" class="form-control" id="ClientBirthDate" type="date" />
-        <span class="text-danger" id="ClientBirthDateError"></span>
-    </div>
+        <div class="container" data-aos="fade" data-aos-delay="100">
+            <div class="row gy-4">
+                <!-- Info Items on the Left Column -->
+                <div class="col-lg-4">
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-person flex-shrink-0"></i>
+                        <div>
+                            <h3>Име на клиента</h3>
+                            <p>Въведете името на клиента.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-    <!-- Description -->
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Описание на въпроса</label>
-        <textarea asp-for="Description" class="form-control" id="Description"></textarea>
-        <span class="text-danger" id="DescriptionError"></span>
-    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-calendar-date flex-shrink-0"></i>
+                        <div>
+                            <h3>Рождена дата на клиента</h3>
+                            <p>Въведете рождената дата на клиента.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-    <!-- Enquiry Type -->
-    <div class="form-group mb-3">
-        <label asp-for="EnquiryTypeId" class="control-label">Тип въпрос</label>
-        <select asp-for="EnquiryTypeId" class="form-control" id="EnquiryTypeId" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
-            <option value="" disabled selected>-- Изберете тип --</option>
-        </select>
-        <span class="text-danger" id="EnquiryTypeIdError"></span>
-    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-pencil flex-shrink-0"></i>
+                        <div>
+                            <h3>Описание на въпроса</h3>
+                            <p>Добавете описание на въпроса.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-    <!-- Seer -->
-    <div class="form-group mb-3">
-        <label asp-for="SeerId" class="control-label">Избери ясновидец</label>
-        <select asp-for="SeerId" class="form-control" id="SeerId" asp-items="Model.Seers">
-            <option value="">-- Изберете ясновидец --</option>
-        </select>
-        <span class="text-danger" id="SeerIdError"></span>
-    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+                        <i class="bi bi-question-circle flex-shrink-0"></i>
+                        <div>
+                            <h3>Тип въпрос</h3>
+                            <p>Изберете типа на въпроса от списъка.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-    <!-- Hidden Fields -->
-    <input type="hidden" asp-for="EnquiryId" value="@Model.EnquiryId" />
-    <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="600">
+                        <i class="bi bi-binoculars flex-shrink-0"></i>
+                        <div>
+                            <h3>Ясновидец</h3>
+                            <p>Изберете ясновидец за този въпрос.</p>
+                        </div>
+                    </div><!-- End Info Item -->
+                </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Запази промените</button>
-</form>
+                <!-- Change Enquiry Form on the Right Column -->
+                <div class="col-lg-8">
+                    <form id="change-enquiry-form" asp-action="ChangeEnquiryById" method="post" novalidate class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <!-- Hidden Fields -->
+                        <input type="hidden" asp-for="EnquiryId" value="@Model.EnquiryId" />
+                        <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
+                        <div class="row gy-4">
+                            <!-- Client Name -->
+                            <div class="form-group">
+                                <input asp-for="ClientName" class="form-control" id="ClientName" placeholder="Име на клиента" />
+                                <span class="text-danger" id="ClientNameError"></span>
+                            </div>
 
-<!-- Back Link -->
-<div class="mt-3">
-    <a asp-action="SeeAllEnquries" asp-controller="Admin" class="btn btn-secondary">Назад към списъка с въпроси</a>
-</div>
+                            <!-- Client Birth Date -->
+                            <div class="form-group">
+                                <input asp-for="ClientBirthDate" class="form-control" id="ClientBirthDate" type="date" placeholder="Рождена дата" />
+                                <span class="text-danger" id="ClientBirthDateError"></span>
+                            </div>
 
-<!-- Link to the external JavaScript file -->
-<script src="~/js/Admin/ChangeEnquiryByIdValidation.js"></script>
+                            <!-- Description -->
+                            <div class="form-group">
+                                <textarea asp-for="Description" class="form-control" id="Description" placeholder="Описание на въпроса"></textarea>
+                                <span class="text-danger" id="DescriptionError"></span>
+                            </div>
+
+                            <!-- Enquiry Type -->
+                            <div class="form-group mb-3">
+                                <select asp-for="EnquiryTypeId" class="form-control" id="EnquiryTypeId" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
+                                    <option value="" disabled selected>-- Изберете тип --</option>
+                                </select>
+                                <span class="text-danger" id="EnquiryTypeIdError"></span>
+                            </div>
+
+                            <!-- Seer -->
+                            <div class="form-group mb-3">
+                                <select asp-for="SeerId" class="form-control" id="SeerId" asp-items="Model.Seers">
+                                    <option value="">-- Изберете ясновидец --</option>
+                                </select>
+                                <span class="text-danger" id="SeerIdError"></span>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit">
+                                    Запази промените
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Back Link -->
+                    <div class="mt-3 text-center">
+                        <a asp-action="SeeAllEnquries" asp-controller="Admin">
+                            Назад към списъка с въпроси
+                        </a>
+                    </div>
+                </div><!-- End Change Enquiry Form -->
+            </div>
+        </div>
+    </section><!-- /Change Enquiry Section -->
+    <!-- Link to the external JavaScript file -->
+    <script src="~/js/Admin/ChangeEnquiryByIdValidation.js"></script>
+</body>
+</html>

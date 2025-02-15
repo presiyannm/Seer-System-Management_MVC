@@ -1,53 +1,113 @@
 ﻿@model EditUserViewModel
-
 @{
     ViewData["Title"] = "Edit User";
 }
 
-<h2>Edit User</h2>
+<!-- Edit User Section -->
+<section id="edit-user" class="contact section dark-background">
+    <!-- Section Title -->
+    <div class="container section-title pt-5 mt-5" data-aos="fade-up">
+        <h2>Редактирай потребител</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div><!-- End Section Title -->
 
-<hr />
+    <div class="container" data-aos="fade" data-aos-delay="100">
+        <div class="row gy-4">
+            <!-- Info Items on the Left Column -->
+            <div class="col-lg-4">
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                    <i class="bi bi-person flex-shrink-0"></i>
+                    <div>
+                        <h3>Име</h3>
+                        <p>Въведете новото име на потребителя.</p>
+                    </div>
+                </div><!-- End Info Item -->
 
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="EditUserById" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                    <i class="bi bi-person-lines-fill flex-shrink-0"></i>
+                    <div>
+                        <h3>Фамилия</h3>
+                        <p>Въведете новата фамилия на потребителя.</p>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                    <i class="bi bi-envelope flex-shrink-0"></i>
+                    <div>
+                        <h3>Имейл</h3>
+                        <p>Въведете новия адрес на потрбителя.</p>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+                    <i class="bi bi-person-badge flex-shrink-0"></i>
+                    <div>
+                        <h3>Потребителско имес</h3>
+                        <p>Въведете новото потребителско име на потребителя.</p>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="600">
+                    <i class="bi bi-person-check flex-shrink-0"></i>
+                    <div>
+                        <h3>Роля</h3>
+                        <p>Изберете роля за потребителя.</p>
+                    </div>
+                </div><!-- End Info Item -->
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="SelectedRoleIndex" class="control-label">Роля</label>
-                <select asp-for="SelectedRoleIndex" class="form-control" asp-items="Model.Roles">
-                    <option value="" selected disabled>-- Select Role --</option>
-                </select>
-                <span asp-validation-for="SelectedRoleIndex" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="SeeAllUsers" asp-controller="Admin" class="btn btn-secondary">Cancel</a>
-            </div>
-        </form>
+
+            <!-- Edit User Form on the Right Column -->
+            <div class="col-lg-8">
+                <form asp-action="EditUserById" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row gy-5">
+                        <!-- First Name -->
+                        <div class="col-md-12">
+                            <input asp-for="FirstName" class="form-control" placeholder="Име" required />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="col-md-12">
+                            <input asp-for="LastName" class="form-control" placeholder="Фамилия" required />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-12">
+                            <input asp-for="Email" class="form-control" placeholder="Имейл" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="col-md-12">
+                            <input asp-for="Username" class="form-control" placeholder="Потребителско име" required />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <!-- Role -->
+                        <div class="col-md-12">
+                            <select asp-for="SelectedRoleIndex" class="form-control" asp-items="Model.Roles">
+                                <option value="" selected disabled>-- Избери роля --</option>
+                            </select>
+                            <span asp-validation-for="SelectedRoleIndex" class="text-danger"></span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-md-12 text-center">
+                            <button type="submit">
+                                Запази
+                            </button>
+                            <a asp-action="SeeAllUsers" asp-controller="Admin">
+                                Назад
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- End Edit User Form -->
+        </div>
     </div>
-</div>
-
+</section><!-- /Edit User Section -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
