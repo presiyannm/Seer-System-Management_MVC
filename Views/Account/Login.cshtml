@@ -1,4 +1,5 @@
 ﻿@model AccountLoginViewModel
+
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success">
@@ -18,43 +19,68 @@
     <title>Вход</title>
 </head>
 <body>
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <section class="card shadow-lg p-4">
-                <div>
-                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+    <!-- Login Section -->
+    <section id="login" class="contact section dark-background">
+        <!-- Section Title -->
+        <div class="container section-title mt-5" data-aos="fade-up">
+            <h2>Вход</h2>
+            <p>Моля, влезте в профила си за да продължите.</p>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mt-5" })
+        </div><!-- End Section Title -->
+        <div class="container" data-aos="fade" data-aos-delay="100">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <!-- Info Items -->
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-person flex-shrink-0"></i>
+                        <div>
+                            <h3>Потребителско име</h3>
+                            <p>Използвайте потребителското си име за вход.</p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-lock flex-shrink-0"></i>
+                        <div>
+                            <h3>Парола</h3>
+                            <p>Въведете паролата си за вход.</p>
+                        </div>
+                    </div><!-- End Info Item -->
                 </div>
 
-                <form id="account" method="post" asp-controller="Account" asp-action="Login">
-                    <div class="form-group mb-4">
-                        <label for="UserName" class="form-label">Потребителско име</label>
-                        <input asp-for="UserName" id="UserName" class="form-control" autocomplete="username" aria-required="true" />
-                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                    </div>
+                <div class="col-lg-8">
+                    <!-- Login Form -->
+                    <form id="account" method="post" asp-controller="Account" asp-action="Login" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row gy-4">
+                            <div class="col-md-12">
+                                <input asp-for="UserName" id="UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Потребителско име" />
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="form-group mb-4">
-                        <label for="Password" class="form-label">Парола</label>
-                        <input asp-for="Password" id="Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                    </div>
+                            <div class="col-md-12">
+                                <input asp-for="Password" id="Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Парола" />
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
 
-                    <div class="text-center mb-4">
-                        <button type="submit" class="btn btn-success btn-lg fw-bold text-white rounded-pill px-5 py-3 shadow-lg w-100">
-                            Вход
-                        </button>
-                    </div>
+                            <div class="col-md-12 text-center">
+                                <button type="submit">
+                                    Вход
+                                </button>
+                            </div>
 
-                    <div class="text-center">
-                        <p>
-                            <a class="text-decoration-none" asp-action="Register" asp-controller="Account">
-                                Регистрирай се
-                            </a>
-                        </p>
-                    </div>
-                </form>
-            </section>
+                            <div class="col-md-12 text-center">
+                                <p>
+                                    <a class="text-decoration-none" asp-action="Register" asp-controller="Account">
+                                        Регистрирай се
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- End Login Form -->
+            </div>
         </div>
-    </div>
+    </section><!-- /Login Section -->
 
     <script src="~/js/Account/LoginValidation.js"></script>
 </body>

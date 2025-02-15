@@ -1,67 +1,102 @@
 ﻿@model AccountRegisterViewModel
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Регистрация</title>
+    <!-- Include your CSS file -->
+    <link rel="stylesheet" href="~/css/site.css">
 </head>
-
 <body>
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <section class="card shadow-lg p-4">
-                <form id="registerForm" method="post" asp-controller="Account" asp-action="Register" enctype="multipart/form-data">
+    <!-- Registration Section -->
+    <section id="register" class="contact section dark-background">
+        <!-- Section Title -->
+        <div class="container section-title mt-5" data-aos="fade-up">
+            <h2>Регистрация</h2>
+            <p>Моля, попълнете формата за да създадете нов акаунт.</p>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mt-5" })
+        </div><!-- End Section Title -->
 
-                    <div class="form-group mb-4">
-                        <label for="UserName" class="form-label">Потребителско име</label>
-                        <input asp-for="UserName" id="UserName" class="form-control" autocomplete="username" aria-required="true" />
-                        <span asp-validation-for="UserName" class="text-danger"></span>
-                    </div>
+        <div class="container" data-aos="fade" data-aos-delay="100">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <!-- Info Items -->
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-person flex-shrink-0"></i>
+                        <div>
+                            <h3>Потребителско име</h3>
+                            <p>Изберете уникално потребителско име.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-                    <div class="form-group mb-4">
-                        <label for="Email" class="form-label">Имейл</label>
-                        <input asp-for="EmailAddress" id="Email" class="form-control" autocomplete="username" aria-required="true" />
-                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
-                    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-envelope flex-shrink-0"></i>
+                        <div>
+                            <h3>Имейл</h3>
+                            <p>Въведете валиден имейл адрес.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-                    <div class="form-group mb-4">
-                        <label for="Password" class="form-label">Парола</label>
-                        <input asp-for="Password" id="Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-lock flex-shrink-0"></i>
+                        <div>
+                            <h3>Парола</h3>
+                            <p>Изберете сигурна парола.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-                    <div class="form-group mb-4">
-                        <label for="ConfirmPassword" class="form-label">Потвърдете паролата</label>
-                        <input asp-for="ConfirmPassword" id="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+                        <i class="bi bi-image flex-shrink-0"></i>
+                        <div>
+                            <h3>Снимка на профила</h3>
+                            <p>Качете снимка за вашия профил.</p>
+                        </div>
+                    </div><!-- End Info Item -->
+                </div>
 
-                    <div class="form-group mb-4">
-                        <label for="FirstName" class="form-label">Първо Име</label>
-                        <input asp-for="FirstName" id="FirstName" class="form-control" autocomplete="first-name" aria-required="true" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group mb-4">
-                        <label for="LastName" class="form-label">Фамилия</label>
-                        <input asp-for="LastName" id="LastName" class="form-control" autocomplete="last-name" aria-required="true" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group mb-4">
-                        <label for="AccountPhotoFile" class="form-label">Снимка на профила</label>
-                        <input asp-for="AccountPhotoFile" id="AccountPhotoFile" class="form-control" type="file" accept="image/*" />
-                        <span asp-validation-for="AccountPhotoFile" class="text-danger"></span>
-                    </div>
-
-                    <div class="text-center mb-4">
-                        <button id="registerSubmit" type="submit" class="btn btn-success btn-lg fw-bold text-white rounded-pill px-5 py-3 shadow-lg w-100">
-                            Регистрация
-                        </button>
-                    </div>
-                </form>
-            </section>
+                <div class="col-lg-8">
+                    <!-- Registration Form -->
+                    <form id="registerForm" method="post" asp-controller="Account" asp-action="Register" enctype="multipart/form-data" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row gy-4">
+                            <div class="col-md-12">
+                                <input asp-for="UserName" id="UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="Потребителско име" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="EmailAddress" id="Email" class="form-control" autocomplete="email" aria-required="true" placeholder="Имейл" />
+                                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="Password" id="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Парола" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="ConfirmPassword" id="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Потвърдете паролата" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="FirstName" id="FirstName" class="form-control" autocomplete="first-name" aria-required="true" placeholder="Първо име" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="LastName" id="LastName" class="form-control" autocomplete="last-name" aria-required="true" placeholder="Фамилия" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="AccountPhotoFile" id="AccountPhotoFile" class="form-control" type="file" accept="image/*" placeholder="Снимка на профила" />
+                                <span asp-validation-for="AccountPhotoFile" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button id="registerSubmit" type="submit">
+                                    Регистрация
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- End Registration Form -->
+            </div>
         </div>
-    </div>
+    </section><!-- /Registration Section -->
 
     <script src="~/js/Account/RegisterValidation.js"></script>
 </body>

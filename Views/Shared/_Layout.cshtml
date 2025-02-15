@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Система_за_управление_на_гадатели_MVC</title>
+    <title>@ViewData["Title"] - Орис Поличба ООД</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -25,7 +25,7 @@
             </a>
 
             <nav id="navmenu" class="navmenu">
-                @if (User.Identity.IsAuthenticated)
+                @if (User?.Identity?.IsAuthenticated ?? false)
                 {
                     <ul>
                         <li><a asp-route-userId="@User.Id()" asp-controller="Client" asp-action="CreateEnquiry">Задай своя въпрос</a></li>
@@ -58,7 +58,7 @@
         </main>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Система_за_управление_на_гадатели_MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Oрис Поличба ООД <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

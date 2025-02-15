@@ -1,42 +1,79 @@
 ﻿@model AccountResetEmailViewModel
-
 @{
-    ViewBag.Title = "Смяна на емайл";
+    ViewBag.Title = "Смяна на имейл";
 }
 
-<h2>@ViewBag.Title</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <!-- Reset Email Section -->
+    <section id="reset-email" class="contact section dark-background">
+        <!-- Section Title -->
+        <div class="container section-title pt-5 mt-5" data-aos="fade-up">
+            <h2>Смяна на имейл</h2>
+            <p>Моля, попълнете формата за да промените вашия имейл адрес.</p>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mt-5" })
+        </div><!-- End Section Title -->
 
-@using (Html.BeginForm("ResetEmail", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
+        <div class="container" data-aos="fade" data-aos-delay="100">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <!-- Info Items -->
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-envelope flex-shrink-0"></i>
+                        <div>
+                            <h3>Текущ имейл</h3>
+                            <p>Въведете текущият си имейл адрес.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.OldEmail, "Текущ емайл" , new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.OldEmail, new { @class = "form-control", type = "email" })
-            @Html.ValidationMessageFor(m => m.OldEmail, "", new { @class = "text-danger" })
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-lock flex-shrink-0"></i>
+                        <div>
+                            <h3>Парола</h3>
+                            <p>Въведете вашата парола за потвърждение.</p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-envelope-plus flex-shrink-0"></i>
+                        <div>
+                            <h3>Нов имейл</h3>
+                            <p>Въведете новият си имейл адрес.</p>
+                        </div>
+                    </div><!-- End Info Item -->
+                </div>
+
+                <div class="col-lg-8">
+                    <!-- Reset Email Form -->
+                    <form method="post" asp-controller="Account" asp-action="ResetEmail" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        @Html.AntiForgeryToken()
+                        <div class="row gy-4">
+                            <div class="col-md-12">
+                                <input asp-for="OldEmail" id="OldEmail" class="form-control" type="email" placeholder="Текущ имейл" />
+                                @Html.ValidationMessageFor(m => m.OldEmail, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="Password" id="Password" class="form-control" type="password" placeholder="Парола" />
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-12">
+                                <input asp-for="NewEmail" id="NewEmail" class="form-control" type="email" placeholder="Нов имейл" />
+                                @Html.ValidationMessageFor(m => m.NewEmail, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="submit">
+                                    Изпрати
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- End Reset Email Form -->
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, "Парола" , new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group mb-3">
-        @Html.LabelFor(m => m.NewEmail, "Нов емайл" ,new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.NewEmail, new { @class = "form-control", type = "email" })
-            @Html.ValidationMessageFor(m => m.NewEmail, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Изпрати" />
-        </div>
-    </div>
-}
+    </section><!-- /Reset Email Section -->
+</body>
+</html>

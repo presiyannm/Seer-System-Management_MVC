@@ -1,36 +1,83 @@
 ﻿@model AccountChangeUserInformationViewModel
 
-<h2 class="text-center">Смяна на информация</h2>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="border p-4 rounded">
-                <form method="post" asp-action="ChangeUserInformation" enctype="multipart/form-data">
-                    <!-- First Name -->
-                    <div class="form-group">
-                        <label for="FirstName">Име</label>
-                        <input type="text" asp-for="FirstName" class="form-control" id="FirstName" />
-                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смяна на информация</title>
+</head>
+<body>
+    <!-- Change User Information Section -->
+    <section id="change-user-info" class="contact section dark-background">
+        <!-- Section Title -->
+        <div class="container section-title mt-5 pt-5" data-aos="fade-up">
+            <h2>Смяна на информация</h2>
+            <p>Моля, попълнете формата за да актуализирате вашата информация.</p>
+        </div><!-- End Section Title -->
 
-                    <!-- Last Name -->
-                    <div class="form-group mb-3">
-                        <label for="LastName">Фамилия</label>
-                        <input type="text" asp-for="LastName" class="form-control" id="LastName" />
-                        <span asp-validation-for="LastName" class="text-danger"></span>
-                    </div>
+        <div class="container" data-aos="fade" data-aos-delay="100">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <!-- Info Items -->
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-person flex-shrink-0"></i>
+                        <div>
+                            <h3>Име</h3>
+                            <p>Въведете вашето ново име.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-                    <!-- Profile Photo -->
-                    <div class="form-group mb-3">
-                        <label for="ProfilePhoto">Профилна снимка</label>
-                        <input type="file" asp-for="ProfilePhoto" class="form-control" id="ProfilePhoto" accept="image/*" />
-                        <small class="text-muted">Моля, изберете изображение във формат JPG, PNG или GIF.</small>
-                    </div>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-person-lines-fill flex-shrink-0"></i>
+                        <div>
+                            <h3>Фамилия</h3>
+                            <p>Въведете вашата нова фамилия.</p>
+                        </div>
+                    </div><!-- End Info Item -->
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Запази промените</button>
-                </form>
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-image flex-shrink-0"></i>
+                        <div>
+                            <h3>Профилна снимка</h3>
+                            <p>Качете нова профилна снимка.</p>
+                        </div>
+                    </div><!-- End Info Item -->
+                </div>
+
+                <div class="col-lg-8">
+                    <!-- Change User Information Form -->
+                    <form method="post" asp-action="ChangeUserInformation" enctype="multipart/form-data" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row gy-4">
+                            <!-- First Name -->
+                            <div class="col-md-6">
+                                <input type="text" asp-for="FirstName" class="form-control" id="FirstName" placeholder="Име" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col-md-6">
+                                <input type="text" asp-for="LastName" class="form-control" id="LastName" placeholder="Фамилия" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Profile Photo -->
+                            <div class="col-md-12">
+                                <input type="file" asp-for="ProfilePhoto" class="form-control" id="ProfilePhoto" accept="image/*" placeholder="Профилна снимка" />
+                                <small class="text-muted">Моля, изберете изображение във формат JPG, PNG или GIF.</small>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-md-12 text-center">
+                                <button type="submit">
+                                    Запази промените
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- End Change User Information Form -->
             </div>
         </div>
-    </div>
-</div>
+    </section><!-- /Change User Information Section -->
+</body>
+</html>
