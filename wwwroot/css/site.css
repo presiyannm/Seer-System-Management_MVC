@@ -955,14 +955,14 @@ section,
     margin: 0;
     border-radius: 50px;
     transition: 0.3s;
-    z-index:2;
+    z-index: 2;
 }
 
-.services .cta-btn:hover,
-.services .cta-btn:focus:hover {
-    color: var(--contrast-color);
-    background: color-mix(in srgb, var(--accent-color), transparent 15%);
-}
+    .services .cta-btn:hover,
+    .services .cta-btn:focus:hover {
+        color: var(--contrast-color);
+        background: color-mix(in srgb, var(--accent-color), transparent 15%);
+    }
 
 @media (min-width: 1365px) {
     .services .service-item:hover {
@@ -1611,6 +1611,7 @@ section,
         padding: 10px 30px;
         transition: 0.4s;
         border-radius: 50px;
+        z-index: 5;
     }
 
         .contact .php-email-form button[type=submit]:hover,

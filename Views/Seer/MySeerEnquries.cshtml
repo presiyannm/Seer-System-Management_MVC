@@ -1,123 +1,135 @@
 ﻿@model PaginatedList<Enquiry>
-<h1>Моите гадателства</h1>
 
-<form asp-action="MySeerEnquries" method="get">
-    <div class="form-group row mb-3">
-        <div class="col-sm-6">
-            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Търси по име или описание..." class="form-control" />
-        </div>
-        <div class="col-sm-6">
-            <button type="submit" class="btn btn-primary">Търси</button>
-            <a asp-action="MySeerEnquries" class="btn btn-secondary">Изчисти</a>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моите гадателства</title>
+</head>
+<body>
+    <!-- My Enquiries Section -->
+    <section id="my-enquiries" class="services section dark-background">
+        <!-- Section Title -->
+        <div class="container section-title mt-5 pt-5" data-aos="fade-up">
+            <h2>Моите гадателства</h2>
+            <p>Това са всички ваши гадателства, които сте извършили за клиенти.</p>
+        </div><!-- End Section Title -->
 
-    <div class="mb-3">
-        <label>Филтрирай по статус:</label>
-        <select name="statusFilter" asp-items="@(new SelectList(ViewBag.Statuses, "Status", "Status", ViewData["StatusFilter"]))" onchange="this.form.submit()" class="form-select">
-            <option value="">Всички</option>
-        </select>
-    </div>
+        <div class="container">
+            <!-- Search Bar -->
+            <form asp-action="MySeerEnquries" method="get" class="mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
+                               placeholder="Търси по име или описание..." class="form-control" />
+                    </div>
+                    <div class="col-md-6 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary w-100">Търси</button>
+                        <a asp-action="MySeerEnquries" class="btn btn-secondary w-100">Изчисти</a>
+                    </div>
+                </div>
+            </form>
 
-    <div class="mb-3">
-        <label>
-            <input type="checkbox" name="showUnfinishedOnly" value="true" onchange="this.form.submit()" @(ViewData["ShowUnfinishedOnly"]?.ToString() == "True" ? "checked" : "") />
-            Покажи само незавършени гадателства
-        </label>
-    </div>
-</form>
+            <!-- Status Filter -->
+            <div class="mb-3" data-aos="fade-up" data-aos-delay="200">
+                <label>Филтрирай по статус:</label>
+                <select name="statusFilter" asp-items="@(new SelectList(ViewBag.Statuses, "Status", "Status", ViewData["StatusFilter"]))"
+                        onchange="this.form.submit()" class="form-select">
+                    <option value="">Всички</option>
+                </select>
+            </div>
 
-@if (!Model.Any())
-{
-    <p>За момента нямаш зададени гадателства.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <a asp-action="MySeerEnquries"
-                       asp-route-sortOrder="@ViewData["ClientNameSortParam"]"
-                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                       asp-route-statusFilter="@ViewData["StatusFilter"]"
-                       asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]">
-                        Име на клиента
-                    </a>
-                </th>
-                <th>Вид Гадателство</th>
-                <th>
-                    <a asp-action="MySeerEnquries"
-                       asp-route-sortOrder="@ViewData["StatusSortParam"]"
-                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                       asp-route-statusFilter="@ViewData["StatusFilter"]"
-                       asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]">
-                        Статус
-                    </a>
-                </th>
-                <th>Описание на въпроса</th>
-                <th>Дата на изпращане</th>
-                <th>Прогрес</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var enquiry in Model)
+            <!-- Show Unfinished Only Checkbox -->
+            <div class="mb-3" data-aos="fade-up" data-aos-delay="300">
+                <label>
+                    <input type="checkbox" name="showUnfinishedOnly" value="true" onchange="this.form.submit()"
+                    @(ViewData["ShowUnfinishedOnly"]?.ToString() == "True" ? "checked" : "") />
+                    Покажи само незавършени гадателства
+                </label>
+            </div>
+
+            <!-- Enquiry Items -->
+            @if (!Model.Any())
             {
-                <tr>
-                    <td>@enquiry.ClientName</td>
-                    <td>@enquiry.EnquiryType?.Name</td>
-                    <td>@enquiry.EnquiryStatus?.Status</td>
-                    <td>@enquiry.Description</td>
-                    <td>@enquiry.ApplicationUserBirthday.ToShortDateString()</td>
-                    <td>
-                        Изпратено на: @(enquiry.EnquirySentToCheck?.ToShortDateString() ?? "N/A")<br />
-                        Влязло в прогрес на: @(enquiry.EnquiryCheckInProgress?.ToShortDateString() ?? "N/A")<br />
-                        Завършено на: @(enquiry.EnquiryCheckFinished?.ToShortDateString() ?? "N/A")
-                    </td>
-                    @if (enquiry.EnquiryStatus.Id < 4)
+                <div class="alert alert-info text-center" data-aos="fade-up" data-aos-delay="400">
+                    За момента нямаш зададени гадателства.
+                </div>
+            }
+            else
+            {
+                <div class="row gy-4">
+                    @foreach (var enquiry in Model)
                     {
-                        <td>
-                            <a class="btn btn-primary btn-sm" onclick="showAnswerBox(@enquiry.Id, @enquiry.EnquiryStatusId, '@enquiry.ApplicationUserId')">Промяна</a>
-                            <div id="answerBox-@enquiry.Id" style="display: none;">
-                                <textarea id="answerText-@enquiry.Id" placeholder="Въведете вашето гадателство..."></textarea>
-                                <button class="btn btn-success btn-sm" onclick="submitAnswer(@enquiry.Id, '@enquiry.ApplicationUserId')">Изпрати</button>
+                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="@(Model.IndexOf(enquiry) * 100 + 400)">
+                            <div class="service-item">
+                                <div class="icon">
+                                    <i class="bi bi-question-circle"></i>
+                                </div>
+                                <a class="stretched-link">
+                                    <h3>@enquiry.ClientName</h3>
+                                </a>
+                                <p><strong>Вид Гадателство:</strong> @enquiry.EnquiryType?.Name</p>
+                                <p><strong>Статус:</strong> @enquiry.EnquiryStatus?.Status</p>
+                                <p><strong>Описание:</strong> @enquiry.Description</p>
+                                <p><strong>Дата на изпращане:</strong> @enquiry.ApplicationUserBirthday.ToShortDateString()</p>
+                                <p>
+                                    <strong>Прогрес:</strong><br />
+                                    Изпратено на: @(enquiry.EnquirySentToCheck?.ToShortDateString() ?? "N/A")<br />
+                                    Влязло в прогрес на: @(enquiry.EnquiryCheckInProgress?.ToShortDateString() ?? "N/A")<br />
+                                    Завършено на: @(enquiry.EnquiryCheckFinished?.ToShortDateString() ?? "N/A")
+                                </p>
+                                @if (enquiry.EnquiryStatus.Id < 4)
+                                {
+                                    <div class="btn-group mt-3 d-flex flex-column" role="group">
+                                        <a class="cta-btn text-center" onclick="showAnswerBox(@enquiry.Id, @enquiry.EnquiryStatusId, '@enquiry.ApplicationUserId')">Промяна</a>
+                                        <div id="answerBox-@enquiry.Id" style="display: none;" class="mt-2">
+                                            <textarea class="w-100" id="answerText-@enquiry.Id" placeholder="Въведете вашето гадателство..."></textarea>
+                                            <button class="cta-btn btn w-100" onclick="submitAnswer(@enquiry.Id, '@enquiry.ApplicationUserId')">Изпрати</button>
+                                        </div>
+                                    </div>
+                                }
                             </div>
-                        </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+                        </div>
 
-    <div class="d-flex justify-content-between align-items-center">
-        <div>
-            @{
-                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                        <!-- End Enquiry Item -->
+                    }
+                </div>
             }
-            <a asp-action="MySeerEnquries"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
-               asp-route-pageNumber="@(Model.PageIndex - 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               asp-route-statusFilter="@ViewData["StatusFilter"]"
-               asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]"
-               class="btn btn-primary @prevDisabled">
-                Предишна
-            </a>
-            <a asp-action="MySeerEnquries"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
-               asp-route-pageNumber="@(Model.PageIndex + 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               asp-route-statusFilter="@ViewData["StatusFilter"]"
-               asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]"
-               class="btn btn-primary @nextDisabled">
-                Следваща
-            </a>
+
+            <!-- Pagination Controls -->
+            <div class="d-flex justify-content-between align-items-center mt-5" data-aos="fade-up" data-aos-delay="500">
+                <div>
+                    @{
+                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+                    <a asp-action="MySeerEnquries"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-statusFilter="@ViewData["StatusFilter"]"
+                       asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]"
+                       class="btn btn-primary @prevDisabled">
+                        Предишна
+                    </a>
+                    <a asp-action="MySeerEnquries"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-statusFilter="@ViewData["StatusFilter"]"
+                       asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]"
+                       class="btn btn-primary @nextDisabled">
+                        Следваща
+                    </a>
+                </div>
+                <div>
+                    Страница @(Model.PageIndex) от @(Model.TotalPages)
+                </div>
+            </div>
         </div>
-        <div>
-            Страница @(Model.PageIndex) от @(Model.TotalPages)
-        </div>
-    </div>
-}
-<script src="~/js/Seer/MySeerEnquries.js"></script>
+    </section><!-- /My Enquiries Section -->
+    <!-- Link to JavaScript File -->
+    <script src="~/js/Seer/MySeerEnquries.js"></script>
+</body>
+</html>

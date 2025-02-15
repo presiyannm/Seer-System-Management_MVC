@@ -26,9 +26,9 @@
 
         <div class="container">
             <!-- Search Bar -->
-            <form asp-action="SeeAllUsers" method="get" class="mb-4" data-aos="fade-up" data-aos-delay="200">
+            <form asp-action="SeeAllUsers" method="get" class="mb-5 pt-3" data-aos="fade-up" data-aos-delay="200">
                 <div class="row gy-3">
-                    <div class="col-md-6 contact">
+                    <div class="col-md-6 contact position-relative" style="z-index:2;">
                         <div class="php-email-form">
                             <input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
                                    placeholder="Търси по име или фамилия..." class="form-control" />
