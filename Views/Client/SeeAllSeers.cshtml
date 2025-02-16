@@ -1,27 +1,38 @@
 ﻿@model IEnumerable<Система_за_управление_на_гадатели_MVC.Models.Seer>
-
 @{
     ViewData["Title"] = "Всички гадатели";
 }
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Списък с гадатели</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (var seer in Model)
-        {
-            if (seer.ApplicationUser != null)
+<!-- Seers Section -->
+<section id="seers" class="services section dark-background">
+    <!-- Section Title -->
+    <div class="container section-title mt-5 pt-5" data-aos="fade-up">
+        <h2>Списък с гадатели</h2>
+        <p>Това са всички регистрирани гадатели в системата.</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+        <div class="row gy-4">
+            @foreach (var seer in Model)
             {
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <img src="~/images/AccountPhotos/@seer.ApplicationUser.AccountPhoto"
-                             class="card-img-top rounded-circle mx-auto d-block mt-3"
-                             alt="@seer.ApplicationUser.FirstName @seer.ApplicationUser.LastName"
-                             style="width: 100px; height: 100px; object-fit: cover;" />
+                if (seer.ApplicationUser != null)
+                {
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="@(Model.ToList().IndexOf(seer) * 100)">
+                        <div class="service-item position-relative d-flex flex-column align-items-center justify-content-between">
+                            <!-- Profile Image -->
+                            <div class="icon d-flex justify-content-center align-items-center">
+                                <img src="~/images/AccountPhotos/@seer.ApplicationUser.AccountPhoto"
+                                     alt="@seer.ApplicationUser.FirstName @seer.ApplicationUser.LastName"
+                                     style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 2px solid var(--accent-color);" />
+                            </div>
 
-                        <div class="card-body text-center">
-                            <h5 class="card-title">@seer.ApplicationUser.FirstName @seer.ApplicationUser.LastName</h5>
+                            <!-- Name -->
+                            <a href="#" class="stretched-link">
+                                <h3>@seer.ApplicationUser.FirstName @seer.ApplicationUser.LastName</h3>
+                            </a>
 
-                            <div class="d-flex justify-content-center align-items-center">
+                            <!-- Rating -->
+                            <div class="d-flex justify-content-center align-items-center mb-2">
                                 @{
                                     double currSeerRating = seer.SumOfRating?.Average() ?? 0;
                                     int fullStars = (int)Math.Floor(currSeerRating);
@@ -32,25 +43,34 @@
                                     {
                                         <i class="bi bi-star-fill text-warning"></i>
                                     }
-
                                     if (halfStar == 1)
                                     {
                                         <i class="bi bi-star-half text-warning"></i>
                                     }
-
                                     for (int i = 0; i < emptyStars; i++)
                                     {
                                         <i class="bi bi-star text-warning"></i>
                                     }
                                 }
                             </div>
-                            <p class="card-text mt-2">Рейтинг: @currSeerRating.ToString("0.0")</p>
+
+                            <!-- Rating Text -->
+                            <p class="text-center">Рейтинг: @currSeerRating.ToString("0.0")</p>
                         </div>
                     </div>
+
+                    <!-- End Seer Item -->
+                }
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="col-12 text-center" data-aos="fade-up">
+                    <p class="text-muted">Няма намерени гадатели.</p>
                 </div>
             }
-        }
+        </div>
     </div>
-</div>
-
+</section><!-- /Seers Section -->
+<!-- Link to Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

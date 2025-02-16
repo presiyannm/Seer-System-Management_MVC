@@ -18,35 +18,39 @@
 
         <div class="container">
             <!-- Search Bar -->
-            <form asp-action="MySeerEnquries" method="get" class="mb-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="row gy-3">
+            <form asp-action="MySeerEnquries" method="get" class="mb-4 contact" data-aos="fade-up" data-aos-delay="100">
+                <div class="row gy-3 php-email-form">
                     <div class="col-md-6">
                         <input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
-                               placeholder="Търси по име или описание..." class="form-control" />
+                               placeholder="Търси по име или описание..." class="form-control position-relative" style="z-index:2;" />
                     </div>
                     <div class="col-md-6 d-flex gap-2">
-                        <button type="submit" class="btn btn-primary w-100">Търси</button>
-                        <a asp-action="MySeerEnquries" class="btn btn-secondary w-100">Изчисти</a>
+                        <button type="submit" class="w-100">Търси</button>
+                        <a asp-action="MySeerEnquries" class="w-100 text-center">Изчисти</a>
                     </div>
                 </div>
             </form>
 
             <!-- Status Filter -->
-            <div class="mb-3" data-aos="fade-up" data-aos-delay="200">
-                <label>Филтрирай по статус:</label>
-                <select name="statusFilter" asp-items="@(new SelectList(ViewBag.Statuses, "Status", "Status", ViewData["StatusFilter"]))"
-                        onchange="this.form.submit()" class="form-select">
-                    <option value="">Всички</option>
-                </select>
+            <div class="mb-3 contact" data-aos="fade-up" data-aos-delay="200">
+                <div class="php-email-form">
+                    <label>Филтрирай по статус:</label>
+                    <select name="statusFilter" asp-items="@(new SelectList(ViewBag.Statuses, "Status", "Status", ViewData["StatusFilter"]))"
+                            onchange="this.form.submit()" class="form-select position-relative" style="z-index:2;">
+                        <option value="">Всички</option>
+                    </select>
+                </div>
             </div>
 
             <!-- Show Unfinished Only Checkbox -->
-            <div class="mb-3" data-aos="fade-up" data-aos-delay="300">
-                <label>
-                    <input type="checkbox" name="showUnfinishedOnly" value="true" onchange="this.form.submit()"
-                    @(ViewData["ShowUnfinishedOnly"]?.ToString() == "True" ? "checked" : "") />
-                    Покажи само незавършени гадателства
-                </label>
+            <div class="mb-3 contact" data-aos="fade-up" data-aos-delay="300">
+                <div class="php-email-form">
+                    <label class="position-relative" style="z-index:2;">
+                        <input type="checkbox" name="showUnfinishedOnly" value="true" onchange="this.form.submit()"
+                        @(ViewData["ShowUnfinishedOnly"]?.ToString() == "True" ? "checked" : "") />
+                        Покажи само незавършени гадателства
+                    </label>
+                </div>
             </div>
 
             <!-- Enquiry Items -->
@@ -70,11 +74,13 @@
                                     <h3>@enquiry.ClientName</h3>
                                 </a>
                                 <p><strong>Вид Гадателство:</strong> @enquiry.EnquiryType?.Name</p>
-                                <p><strong>Статус:</strong> @enquiry.EnquiryStatus?.Status</p>
+                                <p><strong>Статус:</strong><span style="color:var(--accent-color);"> @enquiry.EnquiryStatus?.Status</span></p>
                                 <p><strong>Описание:</strong> @enquiry.Description</p>
                                 <p><strong>Дата на изпращане:</strong> @enquiry.ApplicationUserBirthday.ToShortDateString()</p>
                                 <p>
-                                    <strong>Прогрес:</strong><br />
+                                    <strong style="color:var(--accent-color);">Прогрес:</strong>
+
+                                    <br />
                                     Изпратено на: @(enquiry.EnquirySentToCheck?.ToShortDateString() ?? "N/A")<br />
                                     Влязло в прогрес на: @(enquiry.EnquiryCheckInProgress?.ToShortDateString() ?? "N/A")<br />
                                     Завършено на: @(enquiry.EnquiryCheckFinished?.ToShortDateString() ?? "N/A")
@@ -83,7 +89,7 @@
                                 {
                                     <div class="btn-group mt-3 d-flex flex-column" role="group">
                                         <a class="cta-btn text-center" onclick="showAnswerBox(@enquiry.Id, @enquiry.EnquiryStatusId, '@enquiry.ApplicationUserId')">Промяна</a>
-                                        <div id="answerBox-@enquiry.Id" style="display: none;" class="mt-2">
+                                        <div id="answerBox-@enquiry.Id" style="display: none; z-index:2" class="mt-2">
                                             <textarea class="w-100" id="answerText-@enquiry.Id" placeholder="Въведете вашето гадателство..."></textarea>
                                             <button class="cta-btn btn w-100" onclick="submitAnswer(@enquiry.Id, '@enquiry.ApplicationUserId')">Изпрати</button>
                                         </div>
@@ -110,7 +116,7 @@
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
                        asp-route-statusFilter="@ViewData["StatusFilter"]"
                        asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]"
-                       class="btn btn-primary @prevDisabled">
+                       class="cta-btn @prevDisabled">
                         Предишна
                     </a>
                     <a asp-action="MySeerEnquries"
@@ -119,7 +125,7 @@
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
                        asp-route-statusFilter="@ViewData["StatusFilter"]"
                        asp-route-showUnfinishedOnly="@ViewData["ShowUnfinishedOnly"]"
-                       class="btn btn-primary @nextDisabled">
+                       class="cta-btn @nextDisabled" style="margin-left: 0.5rem;">
                         Следваща
                     </a>
                 </div>

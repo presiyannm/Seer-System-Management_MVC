@@ -1,59 +1,110 @@
 ﻿@model CreateEnquiryViewModel
 
-<h2>ЗАДАЙ СВОЯ ВЪПРОС</h2>
-<form id="create-enquiry-form" asp-action="CreateEnquiry" asp-controller="Client" method="post" novalidate>
-    <!-- Client Name -->
-    <div class="form-group">
-        <label for="ClientName">Пълно име</label>
-        <input asp-for="ClientName" class="form-control" id="ClientName" />
-        <span class="text-danger" id="ClientNameError"></span>
+<!-- Create Enquiry Section -->
+<section id="create-enquiry" class="contact section dark-background">
+    <!-- Section Title -->
+    <div class="container section-title mt-5 pt-5" data-aos="fade-up">
+        <h2>ЗАДАЙ СВОЯ ВЪПРОС</h2>
+        <p>Попълнете формата, за да зададете вашия въпрос на избрания гадател.</p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade" data-aos-delay="100">
+        <div class="row gy-4">
+            <!-- Info Items on the Left Column -->
+            <div class="col-lg-4">
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                    <i class="bi bi-question-circle flex-shrink-0"></i>
+                    <div>
+                        <h3>Какво е това?</h3>
+                        <p>Тук можете да зададете вашия въпрос за гадателството.</p>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                    <i class="bi bi-calendar-date flex-shrink-0"></i>
+                    <div>
+                        <h3>Дата на раждане</h3>
+                        <p>Въведете вашата дата на раждане за по-точно гадателство.</p>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                    <i class="bi bi-pencil flex-shrink-0"></i>
+                    <div>
+                        <h3>Описание на въпроса</h3>
+                        <p>Добавете подробно описание на вашия въпрос.</p>
+                    </div>
+                </div><!-- End Info Item -->
+
+                <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+                    <i class="bi bi-binoculars flex-shrink-0"></i>
+                    <div>
+                        <h3>Избор на гадател</h3>
+                        <p>Изберете предпочитания гадател от списъка.</p>
+                    </div>
+                </div><!-- End Info Item -->
+            </div>
+
+            <!-- Create Enquiry Form on the Right Column -->
+            <div class="col-lg-8">
+                <form id="create-enquiry-form" asp-action="CreateEnquiry" asp-controller="Client" method="post" novalidate class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Client Name -->
+                    <div class="form-group">
+                        <label for="ClientName">Пълно име</label>
+                        <input asp-for="ClientName" class="form-control" id="ClientName" placeholder="Вашето пълно име" />
+                        <span class="text-danger" id="ClientNameError"></span>
+                    </div>
+
+                    <!-- Client Birth Date -->
+                    <div class="form-group">
+                        <label for="ClientBirthDate">Дата на раждане</label>
+                        <input asp-for="ClientBirthDate" class="form-control" id="ClientBirthDate" type="date" placeholder="Дата на раждане" />
+                        <span class="text-danger" id="ClientBirthDateError"></span>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="Description">Описание на въпроса</label>
+                        <textarea asp-for="Description" class="form-control" id="Description" placeholder="Опишете вашия въпрос..."></textarea>
+                        <span class="text-danger" id="DescriptionError"></span>
+                    </div>
+
+                    <!-- Wanted Result -->
+                    <div class="form-group">
+                        <label for="WantedResult">Желан резултат</label>
+                        <textarea asp-for="WantedResult" class="form-control" id="WantedResult" placeholder="Опишете какъв резултат очаквате..."></textarea>
+                        <span class="text-danger" id="WantedResultError"></span>
+                    </div>
+
+                    <!-- Enquiry Type -->
+                    <div class="form-group">
+                        <label for="EnquiryTypeId">Избери си вид гадаене</label>
+                        <select asp-for="EnquiryTypeId" class="form-control" id="EnquiryTypeId" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
+                            <option value="" disabled selected>-- Избери вид гадаене --</option>
+                        </select>
+                        <span class="text-danger" id="EnquiryTypeIdError"></span>
+                    </div>
+
+                    <!-- Seer -->
+                    <div class="form-group mb-3">
+                        <label for="SeerId">Избери си гадател</label>
+                        <select asp-for="SeerId" class="form-control" id="SeerId" asp-items="@(new SelectList(Model.Seers, "Id", "ApplicationUser.UserName"))">
+                            <option value="" disabled selected>-- Избери гадател --</option>
+                        </select>
+                        <span class="text-danger" id="SeerIdError"></span>
+                    </div>
+
+                    <!-- Hidden ClientId -->
+                    <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit">Изпрати</button>
+                    </div>
+                </form>
+            </div><!-- End Create Enquiry Form -->
+        </div>
     </div>
-
-    <!-- Client Birth Date -->
-    <div class="form-group">
-        <label for="ClientBirthDate">Дата на раждане</label>
-        <input asp-for="ClientBirthDate" class="form-control" id="ClientBirthDate" type="date" />
-        <span class="text-danger" id="ClientBirthDateError"></span>
-    </div>
-
-    <!-- Description -->
-    <div class="form-group">
-        <label for="Description">Описание на въпроса</label>
-        <textarea asp-for="Description" class="form-control" id="Description"></textarea>
-        <span class="text-danger" id="DescriptionError"></span>
-    </div>
-
-    <!-- Wanted Result -->
-    <div class="form-group">
-        <label for="WantedResult">Желан резултат</label>
-        <textarea asp-for="WantedResult" class="form-control" id="WantedResult"></textarea>
-        <span class="text-danger" id="WantedResultError"></span>
-    </div>
-
-    <!-- Enquiry Type -->
-    <div class="form-group">
-        <label for="EnquiryTypeId">Избери си вид гадаене</label>
-        <select asp-for="EnquiryTypeId" class="form-control" id="EnquiryTypeId" asp-items="@(new SelectList(Model.EnquiryTypes, "Id", "Name"))">
-            <option value="" disabled selected>-- Избери вид гадаене --</option>
-        </select>
-        <span class="text-danger" id="EnquiryTypeIdError"></span>
-    </div>
-
-    <!-- Seer -->
-    <div class="form-group mb-3">
-        <label for="SeerId">Избери си гадател</label>
-        <select asp-for="SeerId" class="form-control" id="SeerId" asp-items="@(new SelectList(Model.Seers, "Id", "ApplicationUser.UserName"))">
-            <option value="" disabled selected>-- Избери гадател --</option>
-        </select>
-        <span class="text-danger" id="SeerIdError"></span>
-    </div>
-
-    <!-- Hidden ClientId -->
-    <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
-
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-success">Изпрати</button>
-</form>
-
+</section><!-- /Create Enquiry Section -->
 <!-- Link to the external JavaScript file -->
 <script src="~/js/Client/CreateEnquiryValidation.js"></script>

@@ -3,34 +3,32 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul>
-    @if (SignInManager.IsSignedIn(User))
-    {
-        var user = await UserManager.GetUserAsync(User);
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
 
-        <li class="nav-item d-flex align-items-center">
-            <img src="~/images/AccountPhotos/@user.AccountPhoto"
-                 alt="Profile Picture"
-                 class="rounded-circle me-2"
-                 style="width: 35px; height: 35px; object-fit: cover;" />
+    <li class="nav-item d-flex align-items-center">
+        <img src="~/images/AccountPhotos/@user.AccountPhoto"
+             alt="Profile Picture"
+             class="rounded-circle me-2"
+             style="width: 35px; height: 35px; object-fit: cover;" />
 
-            <a title="Manage" asp-action="Dashboard" asp-controller="Account">
-                Здравей, @User.Identity?.Name!
-            </a>
-        </li>
-        <li>
-            <form class="form-inline" asp-controller="Account" asp-action="SignOut">
-                <button type="submit" class="btn cta-btn">Изход</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li>
-            <a asp-controller="Account" asp-action="Register" class="cta-btn">Регистрирай се</a>
-        </li>
-        <li>
-            <a asp-controller="Account" asp-action="Login" class="cta-btn">Вход</a>
-        </li>
-    }
-</ul>
+        <a title="Manage" asp-action="Dashboard" asp-controller="Account">
+            Здравей, @User.Identity?.Name!
+        </a>
+    </li>
+    <li>
+        <form class="form-inline" asp-controller="Account" asp-action="SignOut">
+            <button type="submit" class="btn cta-btn">Изход</button>
+        </form>
+    </li>
+}
+else
+{
+    <li>
+        <a asp-controller="Account" asp-action="Register" class="cta-btn">Регистрирай се</a>
+    </li>
+    <li>
+        <a asp-controller="Account" asp-action="Login" class="cta-btn">Вход</a>
+    </li>
+}

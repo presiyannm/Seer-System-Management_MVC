@@ -38,8 +38,8 @@
                                 <p><strong>Дата на влизане в процес:</strong> @(enquiry.EnquiryCheckInProgress?.ToString("yyyy-MM-dd") ?? "Не е започнат")</p>
                                 <p><strong>Дата на приключване:</strong> @(enquiry.EnquiryCheckFinished?.ToString("yyyy-MM-dd") ?? "Не е завършен")</p>
                                 <div class="d-flex flex-column mt-2" role="group">
-                                    <a class="cta-btn btn mb-2" asp-action="ChangeEnquiryById" asp-route-enquiryId="@enquiry.Id" asp-route-userId="@enquiry.ApplicationUserId">Редактирай</a>
-                                    <a class="cta-btn btn" asp-action="DeleteEnquiryById" asp-route-enquiryId="@enquiry.Id">Изтрий</a>
+                                    <a class="cta-btn btn mb-2 position-relative" asp-action="ChangeEnquiryById" asp-route-enquiryId="@enquiry.Id" asp-route-userId="@enquiry.ApplicationUserId">Редактирай</a>
+                                    <a class="cta-btn btn position-relative" asp-action="DeleteEnquiryById" asp-route-enquiryId="@enquiry.Id">Изтрий</a>
                                 </div>
                             </div>
                         </div>
