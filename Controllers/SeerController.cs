@@ -30,7 +30,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         string sortOrder,
         string currentFilter,
         string searchString,
-        string statusFilter,
+        string? statusFilter,
         int? pageNumber,
         bool showUnfinishedOnly = false)
         {
@@ -47,8 +47,9 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             ViewData["ClientNameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "client_desc" : "";
             ViewData["StatusSortParam"] = sortOrder == "status_asc" ? "status_desc" : "status_asc";
             ViewData["DateSortParam"] = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+            ViewData["StatusFilter"] = statusFilter;
 
-            if (searchString != null)
+            if (!string.IsNullOrEmpty(searchString))
             {
                 pageNumber = 1;
             }
@@ -65,23 +66,28 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             {
                 var enquiries = await seersService.GetAllSeerEnquriesAsync(userId);
 
+                // Apply search filter
                 if (!string.IsNullOrEmpty(searchString))
                 {
-                    enquiries = enquiries.Where(e => e.ClientName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-                                                     e.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-                                                     e.WantedResult.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+                    enquiries = enquiries.Where(e =>
+                        e.ClientName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                        e.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                        e.WantedResult.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
 
+                // Apply unfinished-only filter
                 if (showUnfinishedOnly)
                 {
                     enquiries = enquiries.Where(e => e.Answer == null || e.EnquiryStatus.Status != "изпълнен").ToList();
                 }
 
+                // Apply status filter
                 if (!string.IsNullOrEmpty(statusFilter))
                 {
                     enquiries = enquiries.Where(e => e.EnquiryStatus.Status == statusFilter).ToList();
                 }
 
+                // Apply sorting
                 switch (sortOrder)
                 {
                     case "client_desc":

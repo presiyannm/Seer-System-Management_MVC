@@ -62,7 +62,6 @@
 --------------------------------------------------------------*/
 body {
     color: var(--default-color);
-    background-color: var(--background-color);
     font-family: var(--default-font);
 }
 
@@ -2258,3 +2257,12 @@ section,
             color: color-mix(in srgb, var(--default-color), transparent 60%);
             font-size: 14px;
         }
+
+.disabled {
+    pointer-events: none; /* Prevents clicking */
+    opacity: 0.6; /* Makes the button look faded */
+    cursor: not-allowed; /* Changes the cursor to indicate it's not clickable */
+    background-color: #ccc; /* Light gray background */
+    color: #888; /* Gray text */
+    border: 1px solid #aaa; /* Gray border */
+}

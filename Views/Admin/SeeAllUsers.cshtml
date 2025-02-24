@@ -5,108 +5,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Списък с потребители</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Списък с потребители</title>
 </head>
 <body>
-    <!-- Users Section -->
-    <section id="users" class="services section dark-background">
-        <!-- Section Title -->
-        <div class="container section-title pt-5 mt-5" data-aos="fade-up">
-            <h2>Списък с потребители</h2>
-            <p>Това е списъкът с всички потребители на платформата.</p>
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <div class="alert alert-danger" data-aos="fade-up" data-aos-delay="100">
-                    @TempData["ErrorMessage"]
-                </div>
-            }
-        </div><!-- End Section Title -->
+	<!-- Users Section -->
+	<section id="users" class="services section dark-background">
+		<!-- Section Title -->
+		<div class="container section-title pt-5 mt-5" data-aos="fade-up">
+			<h2>Списък с потребители</h2>
+			<p>Това е списъкът с всички потребители на платформата.</p>
+			@if (TempData["ErrorMessage"] != null)
+			{
+				<div class="alert alert-danger" data-aos="fade-up" data-aos-delay="100">
+					@TempData["ErrorMessage"]
+				</div>
+			}
+		</div><!-- End Section Title -->
 
-        <div class="container">
-            <!-- Search Bar -->
-            <form asp-action="SeeAllUsers" method="get" class="mb-5 pt-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="row gy-3">
-                    <div class="col-md-6 contact position-relative" style="z-index:2;">
-                        <div class="php-email-form">
-                            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
-                                   placeholder="Търси по име или фамилия..." class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-6 d-flex gap-2">
-                        <button type="submit" class="btn cta-btn w-100">Търси</button>
-                        <a asp-action="SeeAllUsers" class="btn cta-btn w-100">Изчисти</a>
-                    </div>
-                </div>
-            </form>
+		<div class="container">
+			<!-- Search Bar -->
+			<form asp-action="SeeAllUsers" method="get" class="mb-5 pt-3" data-aos="fade-up" data-aos-delay="200">
+				<div class="row gy-3">
+					<div class="col-md-6 contact position-relative" style="z-index:2;">
+						<div class="php-email-form">
+							<input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
+								   placeholder="Търси по име или фамилия..." class="form-control" />
+						</div>
+					</div>
+					<div class="col-md-6 d-flex gap-2">
+						<button type="submit" class="btn cta-btn w-100">Търси</button>
+						<a asp-action="SeeAllUsers" class="btn cta-btn w-100">Изчисти</a>
+					</div>
+				</div>
+			</form>
 
-            <!-- User Items -->
-            <div class="row gy-4">
-                @foreach (var user in Model)
-                {
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="@(Model.IndexOf(user) * 100 + 300)">
-                        <div class="service-item">
-                            <div class="icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                            <a class="stretched-link">
-                                <h3>@user.FirstName @user.LastName</h3>
-                            </a>
-                            <p><strong>Имейл:</strong> @user.Email</p>
-                            <p><strong>Потребителско име:</strong> @user.UserName</p>
-                            <p>
-                                <strong>Роля:</strong>
-                                @{
-                                    var userRole = await UserManager.GetRolesAsync(user);
-                                    if (userRole.Any())
-                                    {
-                                        <span>@userRole.First()</span>
-                                    }
-                                    else
-                                    {
-                                        <span>Няма роля</span>
-                                    }
-                                }
-                            </p>
-                            <div class="d-flex flex-column mt-2" role="group">
-                                <a class="cta-btn mb-2" asp-action="EditUserById" asp-route-userId="@user.Id">Редактирай</a>
-                                <a class="cta-btn" asp-action="DeleteUserById" asp-route-userId="@user.Id">Изтрий</a>
-                            </div>
-                        </div>
-                    </div>
+			<!-- User Items -->
+			<div class="row gy-4">
+				@foreach (var user in Model)
+				{
+					<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="@(Model.IndexOf(user) * 100 + 300)">
+						<div class="service-item">
+							<div class="icon">
+								<i class="bi bi-person"></i>
+							</div>
+							<a class="stretched-link">
+								<h3>@user.FirstName @user.LastName</h3>
+							</a>
+							<p><strong>Имейл:</strong> @user.Email</p>
+							<p><strong>Потребителско име:</strong> @user.UserName</p>
+							<p>
+								<strong>Роля:</strong>
+								@{
+									var userRole = await UserManager.GetRolesAsync(user);
+									if (userRole.Any())
+									{
+										<span>@userRole.First()</span>
+									}
+									else
+									{
+										<span>Няма роля</span>
+									}
+								}
+							</p>
+							<div class="d-flex flex-column mt-2" role="group">
+								<a class="cta-btn mb-2" asp-action="EditUserById" asp-route-userId="@user.Id">Редактирай</a>
+								<a class="cta-btn" asp-action="DeleteUserById" asp-route-userId="@user.Id">Изтрий</a>
+							</div>
+						</div>
+					</div>
 
-                    <!-- End User Item -->
-                }
-            </div>
+					<!-- End User Item -->
+				}
+			</div>
 
-            <!-- Pagination Controls -->
-            <div class="d-flex justify-content-between align-items-center mt-5" data-aos="fade-up" data-aos-delay="500">
-                <div>
-                    @{
-                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-                    }
-                    <a asp-action="SeeAllUsers"
-                       asp-route-sortOrder="@ViewData["CurrentSort"]"
-                       asp-route-pageNumber="@(Model.PageIndex - 1)"
-                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                       class="btn btn-primary @prevDisabled">
-                        Предишна
-                    </a>
-                    <a asp-action="SeeAllUsers"
-                       asp-route-sortOrder="@ViewData["CurrentSort"]"
-                       asp-route-pageNumber="@(Model.PageIndex + 1)"
-                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                       class="btn btn-primary @nextDisabled">
-                        Следваща
-                    </a>
-                </div>
-                <div>
-                    Страница @(Model.PageIndex) от @(Model.TotalPages)
-                </div>
-            </div>
-        </div>
-    </section><!-- /Users Section -->
+			<!-- Pagination Controls -->
+			<div class="d-flex justify-content-between align-items-center mt-5 contact" data-aos="fade-up" data-aos-delay="500">
+				<div class="php-email-form">
+					@{
+						var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+						var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+					}
+					<a asp-action="SeeAllUsers"
+					   asp-route-sortOrder="@ViewData["CurrentSort"]"
+					   asp-route-pageNumber="@(Model.PageIndex - 1)"
+					   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+					   class="btn position-relative @prevDisabled" style="z-index:2;">
+						Предишна
+					</a>
+					<a asp-action="SeeAllUsers"
+					   asp-route-sortOrder="@ViewData["CurrentSort"]"
+					   asp-route-pageNumber="@(Model.PageIndex + 1)"
+					   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+					   class="btn position-relative @nextDisabled" style="z-index:2;">
+						Следваща
+					</a>
+				</div>
+				<div>
+					Страница @(Model.PageIndex) от @(Model.TotalPages)
+				</div>
+			</div>
+		</div>
+	</section><!-- /Users Section -->
 </body>
 </html>
