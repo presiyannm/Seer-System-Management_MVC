@@ -66,7 +66,7 @@ namespace Система_за_управление_на_гадатели_MVC.Ser
         {
             var enquiry = await context.Enquiries
                 .Include(x => x.ApplicationUser)
-                .Where(x => x.Id ==  enquiryId && x.ApplicationUserId == userId)
+                .Where(x => x.Id ==  enquiryId)
                 .FirstOrDefaultAsync();
 
             if (enquiry == null)
