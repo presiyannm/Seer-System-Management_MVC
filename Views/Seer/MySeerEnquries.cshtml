@@ -9,15 +9,12 @@
 	<title>Моите гадателства</title>
 </head>
 <body>
-	<!-- My Enquiries Section -->
 	<section id="my-enquiries" class="services section dark-background">
-		<!-- Section Title -->
 		<div class="container section-title mt-5 pt-5" data-aos="fade-up">
 			<h2>Моите гадателства</h2>
 			<p>Това са всички ваши гадателства, които сте извършили за клиенти.</p>
-		</div><!-- End Section Title -->
+		</div>
 		<div class="container">
-			<!-- Search Bar -->
 			<form asp-action="MySeerEnquries" method="get" class="mb-4 contact" data-aos="fade-up" data-aos-delay="100">
 				<div class="row gy-3 php-email-form">
 					<div class="col-md-6">
@@ -31,7 +28,6 @@
 				</div>
 			</form>
 
-			<!-- Status Filter -->
 			<div class="mb-3 contact" data-aos="fade-up" data-aos-delay="200">
 				<label>Филтрирай по статус:</label>
 				<select id="statusFilterDropdown" class="form-select position-relative" style="z-index:2;">
@@ -44,7 +40,6 @@
 				</select>
 			</div>
 
-			<!-- Show Unfinished Only Checkbox -->
 			<div class="mb-3 contact" data-aos="fade-up" data-aos-delay="300">
 				<div class="php-email-form">
 					<label class="position-relative" style="z-index:2;">
@@ -54,7 +49,6 @@
 				</div>
 			</div>
 
-			<!-- Enquiry Items -->
 			@if (!Model.Any())
 			{
 				<div class="alert alert-info text-center" data-aos="fade-up" data-aos-delay="400">
@@ -77,12 +71,12 @@
 								<p><strong>Вид Гадателство:</strong> @enquiry.EnquiryType?.Name</p>
 								<p><strong>Статус:</strong><span style="color:var(--accent-color);"> @enquiry.EnquiryStatus?.Status</span></p>
 								<p><strong>Описание:</strong> @enquiry.Description</p>
-								<p><strong>Дата на изпращане:</strong> @enquiry.ApplicationUserBirthday.ToShortDateString()</p>
+								<p><strong>Дата на раждане:</strong> @enquiry.ApplicationUserBirthday.ToShortDateString()</p>
 								<p>
 									<strong style="color:var(--accent-color);">Прогрес:</strong>
 									<br />
 									Изпратено на: @(enquiry.EnquirySentToCheck?.ToShortDateString() ?? "N/A")<br />
-									Влязло в прогрес на: @(enquiry.EnquiryCheckInProgress?.ToShortDateString() ?? "N/A")<br />
+									Влязло в преглед на: @(enquiry.EnquiryCheckInProgress?.ToShortDateString() ?? "N/A")<br />
 									Завършено на: @(enquiry.EnquiryCheckFinished?.ToShortDateString() ?? "N/A")
 								</p>
 								@if (enquiry.EnquiryStatus.Id < 4)
@@ -97,17 +91,14 @@
 								}
 							</div>
 						</div>
-						<!-- End Enquiry Item -->
 					}
 				</div>
 			}
 
-			<!-- Pagination Controls -->
 			@if (Model.TotalPages > 0)
 			{
 				<div class="d-flex justify-content-between align-items-center mt-5" data-aos="fade-up" data-aos-delay="500">
 					<div>
-
 						@if (!Model.HasPreviousPage)
 						{
 							<a asp-action="MySeerEnquries"
@@ -132,9 +123,7 @@
 							   class="cta-btn">
 								Предишна
 							</a>
-
 						}
-
 
 						@if (!Model.HasNextPage)
 						{
@@ -160,7 +149,6 @@
 								Следваща
 							</a>
 						}
-
 					</div>
 
 					<div>
@@ -169,8 +157,7 @@
 				</div>
 			}
 		</div>
-	</section><!-- /My Enquiries Section -->
-	<!-- Link to JavaScript File -->
+	</section>
 	<script src="~/js/Seer/MySeerEnquries.js"></script>
 </body>
 </html>

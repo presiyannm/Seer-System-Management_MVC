@@ -9,16 +9,12 @@ using Система_за_управление_на_гадатели_MVC.Models.
 
 namespace Система_за_управление_на_гадатели_MVC.Controllers
 {
-
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private IEnquiryService enquiryService;
-
         private IAdminService adminService;
-
         private ISeersService seersService;
-
         private UserManager<ApplicationUser> userManager;
 
         public AdminController(IEnquiryService enquiryService, IAdminService adminService, ISeersService seersService, UserManager<ApplicationUser> userManager)
@@ -33,14 +29,12 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         public async Task<IActionResult> SeeAllEnquries()
         {
             var enquries = await enquiryService.GetAllEnquriesAsync();
-
             return View(enquries);
         }
 
         public async Task<IActionResult> DeleteEnquiryById(int enquiryId)
         {
             await adminService.DeleteEnquiryByIdAsync(enquiryId);
-
             return RedirectToAction("SeeAllEnquries");
         }
 
@@ -76,7 +70,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             if (ModelState.IsValid)
             {
                 await enquiryService.ChangeEnquiryInformation(model);
-
                 return RedirectToAction("SeeAllEnquries");
             }
 
@@ -84,17 +77,11 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         }
 
         [HttpGet]
-        public async Task<IActionResult> SeeAllUsers(
-            string sortOrder,
-            string currentFilter,
-            string searchString,
-            int? pageNumber)
+        public async Task<IActionResult> SeeAllUsers(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            // Sorting logic
             ViewData["FirstNameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "first_desc" : "";
             ViewData["LastNameSortParam"] = sortOrder == "last_asc" ? "last_desc" : "last_asc";
 
-            // Filtering logic
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -108,14 +95,12 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             var users = await adminService.GetApplicationUsersAsync();
 
-            // Search logic
             if (!string.IsNullOrEmpty(searchString))
             {
                 users = users.Where(u => u.FirstName.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
                                          u.LastName.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
-            // Sorting logic
             switch (sortOrder)
             {
                 case "first_desc":
@@ -132,8 +117,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                     break;
             }
 
-            // Pagination logic
-            int pageSize = 2; // Number of items per page
+            int pageSize = 2;
             return View(PaginatedList<ApplicationUser>.Create(users.AsQueryable(), pageNumber ?? 1, pageSize));
         }
 
@@ -148,7 +132,16 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             }
 
             var user = await adminService.GetUserById(userId);
-
+            if (user.Seer != null)
+            {
+                if (user.Seer.Enquiries != null)
+                {
+                    foreach (var enquiry in user.Seer.Enquiries)
+                    {
+                        user.Seer.Enquiries.Remove(enquiry);
+                    }
+                }
+            }
             await adminService.RemoveUser(user);
 
             return RedirectToAction("SeeAllUsers");
@@ -158,9 +151,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         public async Task<IActionResult> EditUserById(string userId)
         {
             var user = await adminService.GetUserById(userId);
-
             var roles = await adminService.GetAllRolesAsync();
-
             var currentRoles = await userManager.GetRolesAsync(user);
 
             int selectedRoleIndex = 0;
@@ -198,13 +189,10 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             if (ModelState.IsValid)
             {
                 await adminService.UpdateUserAsync(model);
-
                 return RedirectToAction("SeeAllUsers", "Admin");
             }
 
             return View(model);
-
         }
-
     }
 }

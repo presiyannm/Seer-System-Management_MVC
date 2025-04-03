@@ -8,7 +8,7 @@ namespace Система_за_управление_на_гадатели_MVC.Int
 
         public Task<ICollection<Enquiry>> GetAllSeerEnquriesAsync(string userId);
 
-        Task<string> UpdateEnquiryById(int enquiryId, string userId, string? answer);
+        public Task<string> UpdateEnquiryById(int enquiryId, string userId, string? answer);
 
         public Task<Seer> GetSeerByIdAsync(int seerId);
 

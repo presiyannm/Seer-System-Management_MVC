@@ -13,9 +13,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
     public class SeerController : Controller
     {
         private readonly ISeersService seersService;
-
         private readonly IEnquiryService enquiryService;
-
         private readonly UserManager<ApplicationUser> userManager;
 
         public SeerController(ISeersService seersService, UserManager<ApplicationUser> userManager, IEnquiryService enquiryService)
@@ -66,7 +64,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             {
                 var enquiries = await seersService.GetAllSeerEnquriesAsync(userId);
 
-                // Apply search filter
                 if (!string.IsNullOrEmpty(searchString))
                 {
                     enquiries = enquiries.Where(e =>
@@ -75,19 +72,16 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                         e.WantedResult.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
 
-                // Apply unfinished-only filter
                 if (showUnfinishedOnly)
                 {
                     enquiries = enquiries.Where(e => e.Answer == null || e.EnquiryStatus.Status != "изпълнен").ToList();
                 }
 
-                // Apply status filter
                 if (!string.IsNullOrEmpty(statusFilter))
                 {
                     enquiries = enquiries.Where(e => e.EnquiryStatus.Status == statusFilter).ToList();
                 }
 
-                // Apply sorting
                 switch (sortOrder)
                 {
                     case "client_desc":
@@ -124,6 +118,5 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             var seerId = await seersService.UpdateEnquiryById(enquiryId, userId, answer);
             return RedirectToAction("MySeerEnquries", new { userId = userId });
         }
-        
     }
 }

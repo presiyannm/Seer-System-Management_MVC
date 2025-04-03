@@ -8,12 +8,10 @@
     <title>Моите въпроси</title>
 </head>
 <body>
-    <!-- My Enquiries Section -->
     <section id="my-enquiries" class="services section dark-background">
-        <!-- Section Title -->
         <div class="container section-title mt-5 pt-5" data-aos="fade-up">
             <h2>Моите въпроси</h2>
-        </div><!-- End Section Title -->
+        </div>
 
         <div class="container">
             <div class="row gy-4">
@@ -24,7 +22,6 @@
                     {
                         @if (enquiry.EnquiryCheckFinished != null)
                         {
-                            <!-- Finished Enquiry Item -->
                             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="@(counter * 100)">
                                 <div class="service-item">
                                     <div class="icon">
@@ -45,12 +42,9 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- End Finished Enquiry Item -->
                         }
                         else
                         {
-                            <!-- Unfinished Enquiry Item -->
                             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="@(counter * 100)">
                                 <div class="service-item">
                                     <div class="icon">
@@ -84,8 +78,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- End Unfinished Enquiry Item -->
                         }
                         counter++;
                     }
@@ -98,6 +90,6 @@
                 }
             </div>
         </div>
-    </section><!-- /My Enquiries Section -->
+    </section>
 </body>
 </html>

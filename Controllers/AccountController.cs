@@ -10,9 +10,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-
         private readonly ApplicationDbContext _context;
-
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public AccountController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, SignInManager<ApplicationUser> signInManager)
@@ -38,41 +36,34 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         {
             if (ModelState.IsValid)
             {
-                // Handle the file upload
                 if (model.AccountPhotoFile != null && model.AccountPhotoFile.Length > 0)
                 {
-                    // Ensure the "images/AccountPhotos" directory exists
                     var uploadsFolder = Path.Combine("wwwroot", "images", "AccountPhotos");
                     if (!Directory.Exists(uploadsFolder))
                     {
                         Directory.CreateDirectory(uploadsFolder);
                     }
 
-                    // Generate a unique file name
                     var uniqueFileName = Guid.NewGuid().ToString() + "_" + model.AccountPhotoFile.FileName;
                     var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                    // Save the file to the server
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await model.AccountPhotoFile.CopyToAsync(fileStream);
                     }
 
-                    // Set the AccountPhoto property to the file path
                     model.AccountPhoto = uniqueFileName;
                 }
 
-                // Create the ApplicationUser
                 var user = new ApplicationUser
                 {
                     UserName = model.UserName,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.EmailAddress,
-                    AccountPhoto = model.AccountPhoto // Set the photo path
+                    AccountPhoto = model.AccountPhoto
                 };
 
-                // Create the user and add to the "Client" role
                 if (model.Password == model.ConfirmPassword)
                 {
                     var result = await _userManager.CreateAsync(user, model.Password);
@@ -96,7 +87,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 }
             }
 
-            // If we got this far, something failed; redisplay the form
             return View(model);
         }
 
@@ -111,7 +101,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Login(AccountLoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -160,7 +149,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             };
 
             return View(dashboardViewModel);
-
         }
 
         [Authorize]
@@ -175,7 +163,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             }
 
             return View();
-
         }
 
         [Authorize]
@@ -196,14 +183,12 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 if (!passwordCheck)
                 {
                     ModelState.AddModelError(string.Empty, "Старата парола е грешна.");
-
                     return View(model);
                 }
 
                 if (model.NewPassword != model.NewPasswordRepeat)
                 {
                     ModelState.AddModelError(string.Empty, "Новите пароли не съвпадат.");
-
                     return View(model);
                 }
 
@@ -212,7 +197,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 if (result.Succeeded)
                 {
                     await _signInManager.SignOutAsync();
-
                     TempData["SuccessMessage"] = "Паролата беше сменена успешно.";
                     return RedirectToAction("Login");
                 }
@@ -221,7 +205,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             }
 
             return View(model);
-
         }
 
         [Authorize]
@@ -234,7 +217,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
-
         public async Task<IActionResult> ResetEmail(AccountResetEmailViewModel model)
         {
             if (!ModelState.IsValid)
@@ -246,8 +228,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
 
             if (user is null)
             {
-                ModelState.AddModelError(nameof(model.OldEmail), "Потребител с този емайл не е намерен.");
-
+                ModelState.AddModelError(nameof(model.OldEmail), "Потребител с този имейл не е намерен.");
                 return View(model);
             }
 
@@ -256,25 +237,18 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.NewEmail);
-
                 await _userManager.ChangeEmailAsync(user, model.NewEmail, token);
-
                 await _userManager.UpdateAsync(user);
-
                 await _signInManager.SignOutAsync();
-
                 TempData["EmailChanged"] = "Your email has been successfully updated!";
-
                 return RedirectToAction("Login", "Account");
             }
-
-            else if(!result.Succeeded)
+            else if (!result.Succeeded)
             {
                 ModelState.AddModelError(nameof(model.Password), "Паролата не съвпада.");
             }
 
             return View(model);
-
         }
 
         [Authorize]
@@ -301,37 +275,29 @@ namespace Система_за_управление_на_гадатели_MVC.Con
                 throw new Exception("User cannot be null");
             }
 
-            // Update first name and last name
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
 
-            // Handle profile photo upload
             if (model.ProfilePhoto != null && model.ProfilePhoto.Length > 0)
             {
-                // Define the path to save the uploaded file
                 var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "AccountPhotos");
 
-                // Ensure the folder exists
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
                 }
 
-                // Generate a unique file name to avoid conflicts
                 var uniqueFileName = $"{Guid.NewGuid()}_{model.ProfilePhoto.FileName}";
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                // Save the file to the server
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.ProfilePhoto.CopyToAsync(fileStream);
                 }
 
-                // Update the user's photo file name in the database
                 user.AccountPhoto = uniqueFileName;
             }
 
-            // Save changes to the database
             await _userManager.UpdateAsync(user);
 
             return RedirectToAction("Index", "Home");
@@ -341,9 +307,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         public async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();
-
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

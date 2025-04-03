@@ -11,12 +11,10 @@ namespace Система_за_управление_на_гадатели_MVC.Con
     public class ClientController : Controller
     {
         private readonly IEnquiryService enquiryService;
-
         private readonly ISeersService seersService;
-
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ClientController(IEnquiryService enquiryService , ISeersService seersService, UserManager<ApplicationUser> userManager)
+        public ClientController(IEnquiryService enquiryService, ISeersService seersService, UserManager<ApplicationUser> userManager)
         {
             this.enquiryService = enquiryService;
             this.seersService = seersService;
@@ -42,16 +40,13 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             if (ModelState.IsValid)
             {
                 await enquiryService.CreateEnquiryAsync(model);
-
                 return RedirectToAction("Index", "Home");
             }
 
             return View(model);
-            //return RedirectToAction("CreateEnquiry", new { userId = model.ClientId });
         }
 
         [HttpGet]
-
         public async Task<IActionResult> ShowMyEnquries(string userId)
         {
             var user = await userManager.FindByIdAsync(userId);
@@ -62,7 +57,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             }
 
             var enquries = await enquiryService.GetAllEnquriesByIdAsync(user);
-            
+
             return View(enquries);
         }
 
@@ -91,8 +86,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
             if (ModelState.IsValid)
             {
                 await enquiryService.ChangeEnquiryInformation(model);
-
-                return RedirectToAction("ShowMyEnquries", new { userId = model.ClientId});
+                return RedirectToAction("ShowMyEnquries", new { userId = model.ClientId });
             }
 
             return View(model);
@@ -119,8 +113,7 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         {
             if (ModelState.IsValid)
             {
-                 await seersService.AddSeerRatingAsync(model.SeerId, model.Rating);
-
+                await seersService.AddSeerRatingAsync(model.SeerId, model.Rating);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -131,7 +124,6 @@ namespace Система_за_управление_на_гадатели_MVC.Con
         public async Task<IActionResult> SeeAllSeers()
         {
             var seers = await seersService.GetAllSeersAsync();
-
             return View(seers);
         }
     }

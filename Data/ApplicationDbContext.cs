@@ -35,9 +35,10 @@ namespace Система_за_управление_на_гадатели_MVC.Dat
                 new EnquiryStatus { Id = 4, Status = "изпълнен"},
                 new EnquiryStatus { Id = 5, Status = "отказан"}
                 );
-        }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+		}
+
+		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<EnquiryType> EnquiryTypes { get; set; }
 

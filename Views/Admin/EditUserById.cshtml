@@ -3,17 +3,14 @@
     ViewData["Title"] = "Edit User";
 }
 
-<!-- Edit User Section -->
 <section id="edit-user" class="contact section dark-background">
-    <!-- Section Title -->
     <div class="container section-title pt-5 mt-5" data-aos="fade-up">
         <h2>Редактирай потребител</h2>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    </div><!-- End Section Title -->
+    </div>
 
     <div class="container" data-aos="fade" data-aos-delay="100">
         <div class="row gy-4">
-            <!-- Info Items on the Left Column -->
             <div class="col-lg-4">
                 <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
                     <i class="bi bi-person flex-shrink-0"></i>
@@ -21,7 +18,7 @@
                         <h3>Име</h3>
                         <p>Въведете новото име на потребителя.</p>
                     </div>
-                </div><!-- End Info Item -->
+                </div>
 
                 <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
                     <i class="bi bi-person-lines-fill flex-shrink-0"></i>
@@ -29,7 +26,7 @@
                         <h3>Фамилия</h3>
                         <p>Въведете новата фамилия на потребителя.</p>
                     </div>
-                </div><!-- End Info Item -->
+                </div>
 
                 <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
                     <i class="bi bi-envelope flex-shrink-0"></i>
@@ -37,7 +34,7 @@
                         <h3>Имейл</h3>
                         <p>Въведете новия адрес на потрбителя.</p>
                     </div>
-                </div><!-- End Info Item -->
+                </div>
 
                 <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
                     <i class="bi bi-person-badge flex-shrink-0"></i>
@@ -45,7 +42,7 @@
                         <h3>Потребителско име</h3>
                         <p>Въведете новото потребителско име на потребителя.</p>
                     </div>
-                </div><!-- End Info Item -->
+                </div>
 
                 <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="600">
                     <i class="bi bi-person-check flex-shrink-0"></i>
@@ -53,39 +50,33 @@
                         <h3>Роля</h3>
                         <p>Изберете роля за потребителя.</p>
                     </div>
-                </div><!-- End Info Item -->
+                </div>
             </div>
 
-            <!-- Edit User Form on the Right Column -->
             <div class="col-lg-8">
                 <form asp-action="EditUserById" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
                     <input type="hidden" asp-for="Id" />
                     <div class="row gy-5">
-                        <!-- First Name -->
                         <div class="col-md-12">
                             <input asp-for="FirstName" class="form-control" placeholder="Име" required />
                             <span asp-validation-for="FirstName" class="text-danger"></span>
                         </div>
 
-                        <!-- Last Name -->
                         <div class="col-md-12">
                             <input asp-for="LastName" class="form-control" placeholder="Фамилия" required />
                             <span asp-validation-for="LastName" class="text-danger"></span>
                         </div>
 
-                        <!-- Email -->
                         <div class="col-md-12">
                             <input asp-for="Email" class="form-control" placeholder="Имейл" required />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
-                        <!-- Username -->
                         <div class="col-md-12">
                             <input asp-for="Username" class="form-control" placeholder="Потребителско име" required />
                             <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
 
-                        <!-- Role -->
                         <div class="col-md-12">
                             <select asp-for="SelectedRoleIndex" class="form-control" asp-items="Model.Roles">
                                 <option value="" selected disabled>-- Избери роля --</option>
@@ -93,7 +84,6 @@
                             <span asp-validation-for="SelectedRoleIndex" class="text-danger"></span>
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="col-md-12 text-center">
                             <button type="submit">
                                 Запази
@@ -104,10 +94,10 @@
                         </div>
                     </div>
                 </form>
-            </div><!-- End Edit User Form -->
+            </div>
         </div>
     </div>
-</section><!-- /Edit User Section -->
+</section>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

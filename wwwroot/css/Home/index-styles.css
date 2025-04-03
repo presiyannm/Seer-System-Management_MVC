@@ -1,44 +1,39 @@
-﻿/* Global Reset */
-* {
+﻿* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Magic Ball Container */
 .magic-ball-container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px; /* Adjust as needed */
+    height: 300px;
     width: 100%;
-    padding-top: 50px; /* Make sure the ball doesn't overlap with navbar */
-    padding-bottom: 50px; /* Ensure space for footer */
+    padding-top: 50px;
+    padding-bottom: 50px;
     flex-grow: 1;
 }
 
-/* Magic Ball Styling */
 .magic-ball {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: #2a2a2a; /* Dark color for the ball */
+    background-color: #2a2a2a;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    animation: vibrate 1s infinite; /* Continuous vibration */
+    animation: vibrate 1s infinite;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-    /* Hover Effects */
     .magic-ball:hover {
         transform: scale(1.2) rotate(360deg);
         box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.6);
     }
 
-/* Magic Ball Glowing Effect */
 .glow {
     width: 100%;
     height: 100%;
@@ -48,7 +43,6 @@
     animation: pulse 2s ease-in-out infinite;
 }
 
-/* Continuous Vibration Animation */
 @keyframes vibrate {
     0% {
         transform: translateX(0) translateY(0);
@@ -71,7 +65,6 @@
     }
 }
 
-/* Pulsing Glowing Effect */
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -89,7 +82,6 @@
     }
 }
 
-/* Content Styling */
 .content-wrapper {
     text-align: center;
     margin-top: 20px;
@@ -115,7 +107,6 @@
     margin-top: 30px;
 }
 
-/* Enhancing the text's mystical aura */
 .text-content h1, .text-content h2 {
     text-transform: uppercase;
     font-size: 2em;
@@ -132,7 +123,6 @@
     margin-right: auto;
 }
 
-/* Add some hover effect on text for extra interaction */
 .text-content h1:hover, .text-content h2:hover {
     color: #ff8c00;
     cursor: pointer;

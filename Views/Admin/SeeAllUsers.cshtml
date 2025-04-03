@@ -10,9 +10,7 @@
 	<title>Списък с потребители</title>
 </head>
 <body>
-	<!-- Users Section -->
 	<section id="users" class="services section dark-background">
-		<!-- Section Title -->
 		<div class="container section-title pt-5 mt-5" data-aos="fade-up">
 			<h2>Списък с потребители</h2>
 			<p>Това е списъкът с всички потребители на платформата.</p>
@@ -22,10 +20,9 @@
 					@TempData["ErrorMessage"]
 				</div>
 			}
-		</div><!-- End Section Title -->
+		</div>
 
 		<div class="container">
-			<!-- Search Bar -->
 			<form asp-action="SeeAllUsers" method="get" class="mb-5 pt-3" data-aos="fade-up" data-aos-delay="200">
 				<div class="row gy-3">
 					<div class="col-md-6 contact position-relative" style="z-index:2;">
@@ -41,7 +38,6 @@
 				</div>
 			</form>
 
-			<!-- User Items -->
 			<div class="row gy-4">
 				@foreach (var user in Model)
 				{
@@ -75,12 +71,9 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- End User Item -->
 				}
 			</div>
 
-			<!-- Pagination Controls -->
 			<div class="d-flex justify-content-between align-items-center mt-5 contact" data-aos="fade-up" data-aos-delay="500">
 				<div class="php-email-form">
 					@{
@@ -107,6 +100,6 @@
 				</div>
 			</div>
 		</div>
-	</section><!-- /Users Section -->
+	</section>
 </body>
 </html>

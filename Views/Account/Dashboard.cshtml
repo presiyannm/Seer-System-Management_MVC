@@ -6,69 +6,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Account</title>
-    <!-- Include your CSS file -->
     <link rel="stylesheet" href="~/css/site.css">
 </head>
 <body>
-    <!-- Dashboard Section -->
     <section id="dashboard" class="features section dark-background">
         <div class="container">
             <div class="row gy-4 pt-5 mt-5">
-            <h2 class="text-center">Лична информация</h2>
-                <!-- Profile Photo -->
+                <h2 class="text-center">Лична информация</h2>
                 <div class="col-lg-4 order-lg-2 features-image" data-aos="fade-up" data-aos-delay="100">
                     <img src="@(string.IsNullOrEmpty(Model.PhotoFileName) ? "/images/AccountPhotos/default.jpg" : $"/images/AccountPhotos/{Model.PhotoFileName}")"
                          alt="Profile Photo"
                          class="profile-image shadow-lg">
                 </div>
 
-                <!-- User Information -->
                 <div class="col-lg-6 order-lg-1">
                     <div class="d-flex flex-column align-items-end">
-                    <div class="features-item d-flex ps-0 ps-lg-3 pt-4 pt-lg-0 text-end" data-aos="fade-up" data-aos-delay="200">
-                        <i class="bi bi-person flex-shrink-0"></i>
-                        <div>
-                            <h4>Потребителско име</h4>
-                            <p>@Model.UserName</p>
+                        <div class="features-item d-flex ps-0 ps-lg-3 pt-4 pt-lg-0 text-end" data-aos="fade-up" data-aos-delay="200">
+                            <i class="bi bi-person flex-shrink-0"></i>
+                            <div>
+                                <h4>Потребителско име</h4>
+                                <p>@Model.UserName</p>
+                            </div>
                         </div>
-                    </div><!-- End Features Item -->
 
                         <div class="features-item d-flex mt-5 ps-0 ps-lg-3 text-end" data-aos="fade-up" data-aos-delay="300">
-                        <i class="bi bi-person-fill flex-shrink-0"></i>
-                        <div>
-                            <h4>Име</h4>
-                            <p>@Model.FirstName</p>
+                            <i class="bi bi-person-fill flex-shrink-0"></i>
+                            <div>
+                                <h4>Име</h4>
+                                <p>@Model.FirstName</p>
+                            </div>
                         </div>
-                    </div><!-- End Features Item -->
 
                         <div class="features-item d-flex mt-5 ps-0 ps-lg-3 text-end" data-aos="fade-up" data-aos-delay="400">
-                        <i class="bi bi-person-lines-fill flex-shrink-0"></i>
-                        <div>
-                            <h4>Фамилия</h4>
-                            <p>@Model.LastName</p>
+                            <i class="bi bi-person-lines-fill flex-shrink-0"></i>
+                            <div>
+                                <h4>Фамилия</h4>
+                                <p>@Model.LastName</p>
+                            </div>
                         </div>
-                    </div><!-- End Features Item -->
 
                         <div class="features-item d-flex mt-5 ps-0 ps-lg-3 text-end" data-aos="fade-up" data-aos-delay="500">
-                        <i class="bi bi-envelope flex-shrink-0"></i>
-                        <div>
-                            <h4>Емайл</h4>
-                            <p>@Model.Email</p>
+                            <i class="bi bi-envelope flex-shrink-0"></i>
+                            <div>
+                                <h4>Имейл</h4>
+                                <p>@Model.Email</p>
+                            </div>
                         </div>
-                    </div><!-- End Features Item -->
 
                         <div class="features-item d-flex mt-5 ps-0 ps-lg-3 text-end" data-aos="fade-up" data-aos-delay="600">
-                        <i class="bi bi-person-badge flex-shrink-0"></i>
-                        <div>
-                            <h4>Роли</h4>
-                            <p>@(string.Join(", ", Model.Roles))</p>
+                            <i class="bi bi-person-badge flex-shrink-0"></i>
+                            <div>
+                                <h4>Роли</h4>
+                                <p>@(string.Join(", ", Model.Roles))</p>
+                            </div>
                         </div>
-                    </div><!-- End Features Item -->
                     </div>
                 </div>
             </div>
 
-            <!-- Dashboard Actions -->
             <div class="row gy-4 mt-5 contact justify-content-center">
                 <div class="col-lg-4 php-email-form">
                     <a asp-action="ResetPassword" asp-controller="Account"
@@ -79,7 +74,7 @@
                 <div class="col-lg-4 php-email-form">
                     <a asp-action="ResetEmail" asp-controller="Account"
                        data-aos="fade-up" data-aos-delay="800">
-                        Смяна на емайл
+                        Смяна на имейл
                     </a>
                 </div>
                 <div class="col-lg-4 php-email-form">
@@ -90,6 +85,6 @@
                 </div>
             </div>
         </div>
-    </section><!-- /Dashboard Section -->
+    </section>
 </body>
 </html>
